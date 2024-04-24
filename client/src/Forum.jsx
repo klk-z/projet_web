@@ -1,9 +1,9 @@
+import React from 'react'
 import { useState } from 'react'
-import ForumPublic from './ForumPublic.jsx'
-import ForumAdmin from './ForumAdmin.jsx'
-
+import ListMessages from './ListMessages.jsx'
 import './App.css'
-import {  BrowserRouter as Router,  Routes,  Route} from "react-router-dom";
+import logo from"./assets/reddit_pastel.png"
+import pfp from "./assets/default-profile-pic.jpg" 
 
 
 
@@ -11,55 +11,58 @@ import {  BrowserRouter as Router,  Routes,  Route} from "react-router-dom";
 function Forum() {
     
 
-    // const adminPage = 
+    // const adminPage = False
     // const normalPage =
 
-    
+  /*  const test = () => {
+		console.log("gkgjkjg")
+	}*/
     
     /*
+	 return (
+		<>
+       <h1>Forum</h1>
+	   <button onClick={ () => test()}>test</button>
+	   </>
+    )*/
     return (
         <>
-        <div class="header_part">
-			<img id="logo" src="465px-Devil-goat.jpg" alt="Italian Trulli"/> 
-			<div class="header_middle"><h1>Organiz'asso</h1>
+        <div className="header_part">
+			<img id="logo" src={logo} alt="blue reddit"/> 
+			<div className="header_middle"><h1>Tell'IT</h1>
 				<input type="search"/> <button>Chercher</button><br/>
 				<label htmlFor="date_debut">Du : </label><input id="date_debut" type="date"/>
-				<label for="date_fin">Au : </label><input id="date_fin" type="date"/>
+				<label htmlFor="date_fin">Au : </label><input id="date_fin" type="date"/>
 			</div>
-			<div class="liens">
-				<a href="OuvrirUneSession.html">Connexion</a>
-				<a href="Enregistrer.html">S'enregistrer</a><br/>
-				<img id="profile_pic" src="red_profile.jpg" alt="Photo de profil"/> 
+			<div className="liens">
+				<img id="profile_pic" src={pfp} alt="Photo de profil"/> 
 			</div>
 		</div>
-		<div class="body_part">
-			<div class="zone_informations"><h2>Informations</h2>
+		<div className="body_part">
+			<div className="zone_informations"><h2>Informations</h2>
 			</div>
-			<div class="zone_messages">
-				<div class="nouveau_message"><h3>Nouveau message</h3>
-				</div>
-				<div class="liste_messages"><h3>Liste messages</h3>
+			<div className="zone_messages">
+				<div className="liste_messages"><ListMessages/>
 				</div>
 			</div>
 		</div>
         </>
     );
-    */
+    
     
 	//ForumAdmin accessible que si utilisateur admin
-    return (
-        <>
-		<Router >
+
+   
+
+}
+
+/*
+<Router >
           <Routes>
             <Route path="/public" element={<ForumPublic/>}/> 
             <Route path="/admin" element={<ForumAdmin/>}/>
           </Routes>
         </Router>
-        </>
-    )
-
-}
-
-
+*/
   
 export default Forum ;

@@ -1,8 +1,9 @@
+import React from 'react'
 import { useState } from 'react'
 import './App.css'
 import Login from './Login.jsx'
 
-function Signin({login}){
+function Signin({login, to_login}){
 	/*
 	const [prenom, setPrenom] = useState('');
 	const [nom, setNom] = useState('');
@@ -54,7 +55,7 @@ function Signin({login}){
 			<button type="submit">Sign in</button>
 			<button type="reset">Annuler</button>
 	</form>
-	<a href={'/login'}>Déjà un compte ?</a>
+	<button onClick={ () => to_login()}>Déjà un compte?</button>
     </>
     );
 }

@@ -1,7 +1,22 @@
+const { MongoClient } = require('mongodb');
+const bcrypt = require('bcrypt');
+
 class Users {
-  constructor(db) {
-    this.db = db
-    // suite plus tard avec la BD
+  constructor(url, dbName) {
+    this.url = url;
+    this.dbName = dbName;
+    this.client = new MongoClient(url, { useNewUrlParser: true });
+  }
+
+  async connect() {
+    await this.client.connect();
+    console.log(`Connected to MongoDB at ${this.url}`);
+    this.db = this.client.db(this.dbName);
+    this.users = this.db.collection('users');
+  }
+
+  async disconnect() {
+      await this.client.close();
   }
 
   create(login, password, lastname, firstname) {

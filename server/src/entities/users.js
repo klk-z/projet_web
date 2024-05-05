@@ -1,34 +1,33 @@
-const { MongoClient } = require('mongodb');
-const bcrypt = require('bcrypt');
+const { ObjectId } = require('mongodb');
 
 class Users {
-  constructor(url, dbName) {
-    this.url = url;
-    this.dbName = dbName;
-    this.client = new MongoClient(url, { useNewUrlParser: true });
-  }
+  constructor(db) {
+    this.db = db
+    this.collection = db.collection('users');
 
-  async connect() {
-    await this.client.connect();
-    console.log(`Connected to MongoDB at ${this.url}`);
-    this.db = this.client.db(this.dbName);
-    this.users = this.db.collection('users');
-  }
-
-  async disconnect() {
-      await this.client.close();
+    // suite plus tard avec la BD
   }
 
   create(login, password, lastname, firstname) {
     return new Promise((resolve, reject) => {
-      let userid = 1; // À remplacer par une requête bd
-      //let userid = await this.db.query("INSERT INTO users (login, password, lastname, firstname) VALUES (?, ?, ?, ?)", [login, password, lastname, firstname]);
-      if(false) {
-        //erreur
-        reject();
-      } else {
-        resolve(userid);
-      }
+      // Création de l'objet utilisateur à insérer dans la base de données
+      const newUser = {
+        login: login,
+        password: password,
+        lastname: lastname,
+        firstname: firstname
+      };
+
+      // Insertion de l'utilisateur dans la base de données
+      this.collection.insertOne(newUser, (err, result) => {
+        if (err) {
+          reject(err); // En cas d'erreur lors de l'insertion
+        } else {
+          // Récupération de l'identifiant de l'utilisateur nouvellement inséré
+          const userId = result.insertedId;
+          resolve(userId); // Renvoie l'identifiant de l'utilisateur inséré
+        }
+      });
     });
   }
 

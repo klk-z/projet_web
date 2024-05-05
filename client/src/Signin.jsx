@@ -1,61 +1,80 @@
 import React from 'react'
 import { useState } from 'react'
 import './App.css'
-import Login from './Login.jsx'
 
-function Signin({login, to_login}){
-	/*
-	const [prenom, setPrenom] = useState('');
-	const [nom, setNom] = useState('');
-	const [util, setUtil] = useState('');
-	*/
-	const [mdp, setMdp] = useState('');
-	const [mdp2, setMdp2] = useState('');
+function Signin({login, changePage}){
+	const [firstName, setFirstName] = useState('');
+	const [lastName, setLastName] = useState('');
+	const [username, setUsername] = useState('');
+	const [pwd, setPwd] = useState('');
+	const [pwd2, setPwd2] = useState('');
   
-	/*
-	const handlePrenomChange = (event) => {
-	  setPrenom(event.target.value);
+	const handleFirstNameChange = (event) => {
+		setFirstName(event.target.value);
+	  };
+
+	const handleLastNameChange = (event) => {
+		setLastName(event.target.value);
+	  };
+
+	const handleUsernameChange = (event) => {
+		setUsername(event.target.value);
+	  };
+	const handlePwdChange = (event) => {
+	  setPwd(event.target.value);
 	};
   
-	const handleNomChange = (event) => {
-	  setNom(event.target.value);
+	const handlePwd2Change = (event) => {
+	  setPwd2(event.target.value);
 	};
   
-	const handleUtilChange = (event) => {
-	  setUtil(event.target.value);
-	};
-	*/
-  
-	const handleMdpChange = (event) => {
-	  setMdp(event.target.value);
-	};
-  
-	const handleMdp2Change = (event) => {
-	  setMdp2(event.target.value);
-	};
-  
-	const handleSubmit = (event) => {
+	const handleSubmit = async (event) => {
 	  event.preventDefault();
-	  if (mdp !== mdp2) {
+	  if (pwd !== pwd2) {
 		alert("Les mots de passe sont différents !");
 	  } else {
-		login();
-	  }
+		const userData = {
+			login: username,
+			password: pwd,
+			lastname: lastName,
+			firstname: firstName
+		  };
+
+		try {
+			const response =  await fetch('http://localhost:4000/api/user', {
+			  method: 'PUT',
+			  headers: {
+				'Content-Type': 'application/json'
+			  },
+			  body: JSON.stringify(userData)
+			});
+	  
+			if (!response.ok) {
+			  throw new Error('Erreur lors de la création du compte');
+			}
+			
+			// Effectuez d'autres actions après la création réussie de l'utilisateur, par exemple, redirigez l'utilisateur vers une autre page
+			changePage("waiting_room");
+		  } catch (error) {
+			alert("Une erreur s'est produite lors de la création de votre compte. Veuillez réessayer plus tard.");
+		  }
+		}
 	};
+	
 
     return (
     <>
     <h1>Créer un compte</h1>
     <form onSubmit={handleSubmit}>
-			<label id="label_prenom" htmlFor="chp_prenom">Prénom</label><label id="label_nom" htmlFor="chp_nom">Nom</label>
-			<input id="chp_prenom" type="text" required="required" /><input id="chp_nom" type="text" required />
-			<label htmlFor="chp_util">Nom d'utilisateur</label><input id="chp_util" type="text" required />
-			<label htmlFor="chp_mdp">Mot de passe</label><input id="chp_mdp" type="password" onChange={handleMdpChange} required />
-			<label htmlFor="chp_mdp2">Confirmez</label><input id="chp_mdp2" type="password" onChange={handleMdp2Change} required />
+			<label id="label_firstname" htmlFor="chp_firstname">Prénom</label><label id="label_lastname" htmlFor="chp_lastname">Nom</label>
+			<input id="chp_firstname" type="text" onChange={handleFirstNameChange} required /><input id="chp_lastname" type="text" onChange={handleLastNameChange} required />
+			<label htmlFor="chp_username">Nom d'utilisateur</label><input id="chp_username" type="text" onChange={handleUsernameChange} required />
+			<label htmlFor="chp_pwd">Mot de passe</label><input id="chp_pwd" type="password" onChange={handlePwdChange} required />
+			<label htmlFor="chp_pwd2">Confirmez votre mot de passe</label><input id="chp_pwd2" type="password" onChange={handlePwd2Change} required />
 			<button type="submit">Sign in</button>
 			<button type="reset">Annuler</button>
 	</form>
-	<button onClick={ () => to_login()}>Déjà un compte?</button>
+	<button onClick={ () => changePage("login_page")}>Déjà un compte?</button>
     </>
     );
 }

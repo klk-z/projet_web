@@ -11,15 +11,13 @@ import ProfilePage from './ProfilePage.jsx'
 function MainPage() {
     const [currentPage, setCurrentPage] = useState('signin_page'); // Page de connexion par défaut
     const [isConnected, setIsConnected] = useState(false);
+    const [user, setUser] = useState("");
 
     // Méthode pour se connecter et changer la page
     const getConnected = (event) => {
-        //setCurrentPage('message_page'); // Changer la page courante pour la page des messages
         setIsConnected(true); // Mettre isConnected à true pour indiquer que l'utilisateur est connecté 
         setCurrentPage('forum');
-        //requete post avec fetch ou axios
-
-        
+        setUser()
     };
 
     const setLogout = () => {
@@ -27,32 +25,36 @@ function MainPage() {
         setIsConnected(false); 
     };
 
-    const setPageLogin = () => {
-        setCurrentPage('login_page'); 
-    };
+    const sendToCheck = () => {
+        // envoie au admin pour etre checké accepté ou non (banned ?)
+    }
 
-    const setPageSignin = () => {
-        setCurrentPage('signin_page'); 
+    const changePage = (page) => {
+        setCurrentPage(page); 
     };
-
     
     const getPage = () => {
         switch (currentPage) {
             case "signin_page":
-                return <Signin signin={getConnected} to_login={setPageLogin}/>
+                return <Signin signin={sendToCheck} changePage={changePage}/>
             case "login_page":
-                return <Login login={getConnected} to_signin={setPageSignin}/>
+                return <Login login={getConnected} changePage={changePage}/>
             case "forum":
                 return <Forum />
+            case "waiting_room":
+                return <WaitingRoom />
             default:
-                return <NavigationPanel login={getConnected} logout={setLogout} isConnected={isConnected} to_signin={setPageSignin}/>
+                return "Veuillez Rafraichir"
         }
     }
     
 
     return (
         <>
-            {getPage()}
+        <NavigationPanel login = {getConnected} logout={setLogout} isConnected={isConnected} changePage={changePage} user={user} />
+        <div className="body_part">
+			{getPage()}
+		</div>
         </>
       
     );
@@ -61,10 +63,4 @@ function MainPage() {
 
 export default MainPage ;
 
-/*
-{currentPage==="signin_page"? <Signin login={getConnected}/> : <NavigationPanel login={getConnected} logout={setLogout} isConnected={isConnected}/>}
-        {currentPage==="message_page"? <Forum/> : <></>}
-            <NavigationPanel login={getConnected} logout={setLogout} isConnected={isConnected} to_signin={setPageSignin}/>
-            {getPage()}
-
-*/
+// {isConnected ? <Logout logout={setLogout} changePage={changePage}/> : <Login login={getConnected} changePage={changePage}/>} 

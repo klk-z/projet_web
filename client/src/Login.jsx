@@ -5,7 +5,7 @@ import axios from 'axios'
 
 
 
-function Login({login, to_signin}) {
+function Login({login, changePage}) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
@@ -41,7 +41,7 @@ function Login({login, to_signin}) {
 			<button type="submit">Connexion</button>
 			<button type="reset">Annuler</button>
 		</form>
-        <button onClick={ () => to_signin() }>Pas de compte?</button>
+        <button onClick={ () => changePage("signin_page") }>Pas de compte?</button>
         </>
     );
 }

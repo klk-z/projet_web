@@ -24,10 +24,7 @@ function Forum() {
        <h1>Forum</h1>
 	   <button onClick={ () => test()}>test</button>
 	   </>
-    )*/
-    return (
-        <>
-        <div className="header_part">
+	   <div className="header_part">
 			<img id="logo" src={logo} alt="blue reddit"/> 
 			<div className="header_middle"><h1>Tell'IT</h1>
 				<input type="search"/> <button>Chercher</button><br/>
@@ -38,6 +35,10 @@ function Forum() {
 				<img id="profile_pic" src={pfp} alt="Photo de profil"/> 
 			</div>
 		</div>
+    )*/
+    return (
+        <>
+        <h1>Forum</h1>
 		<div className="body_part">
 			<div className="zone_informations"><h2>Informations</h2>
 			</div>

@@ -39,11 +39,9 @@ function MainPage() {
             case "signin_page":
                 return <Signin signin={sendToCheck} changePage={changePage}/>
             case "login_page":
-                return <Login login={getConnected} changePage={changePage}/>
+                return <Login login={getConnected} changePage={changePage} setUser={setUser}/>
             case "forum":
-                return <Forum />
-            case "waiting_room":
-                return <WaitingRoom />
+                return <Forum user ={user}/>
             default:
                 return "Veuillez Rafraichir"
         }

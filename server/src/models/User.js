@@ -1,12 +1,15 @@
 const mongoose = require('mongoose')
 
 const UserSchema = new mongoose.Schema({
-    username : String,
-    password : String,
-    firstname : String,
-    lastname : String,
-    isAccepted : Boolean,
-    isAdmin : Boolean
+    username : {type: String, 
+        unique: true,
+        minLength: 5},
+    password : {type: String},
+    firstname : {type: String},
+    lastname : {type: String},
+    isBanned : {type: Boolean},
+    isAdmin : {type: Boolean},
+    newUser : {type: Boolean}
     //profilePicture : Image
 })
 

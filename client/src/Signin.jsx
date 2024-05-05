@@ -3,7 +3,7 @@ import { useState } from 'react'
 import axios from 'axios';
 import './App.css'
 
-function Signin({login, changePage}){
+function Signin({signin, changePage}){
 	const [firstName, setFirstName] = useState('');
 	const [lastName, setLastName] = useState('');
 	const [username, setUsername] = useState('');
@@ -47,13 +47,15 @@ function Signin({login, changePage}){
             if (response.status === 201) {
                 console.log("Utilisateur créé avec succès:", response.data);
                 // Effectuez d'autres actions après la création réussie de l'utilisateur, par exemple, redirigez l'utilisateur vers une autre page
-                changePage("waiting_room");
+                // changePage("login_page");
+				changePage("forum");
+				signin();
             } else {
                 throw new Error('Erreur lors de la création du compte');
             }
         } catch (error) {
             console.log("Une erreur s'est produite lors de la création de votre compte:", error);
-            alert("Une erreur s'est produite lors de la création de votre compte. Veuillez réessayer plus tard.");
+            //alert("Une erreur s'est produite lors de la création de votre compte. Veuillez réessayer plus tard.");
         }
 		}
 	};

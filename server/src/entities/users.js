@@ -3,7 +3,7 @@ const { ObjectId } = require('mongodb');
 class Users {
   constructor(db) {
     this.db = db
-    this.collection = db.collection('users');
+    //this.collection = db.collection('users');
 
     // suite plus tard avec la BD
   }

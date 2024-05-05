@@ -1,31 +1,19 @@
 const path = require('path');
 const api = require('./api.js');
-const express = require('express');
+const mongoose = require("mongoose")
 const cors = require('cors');
-express = require('express');
-const session = require("express-session");
+const mongo_url = "mongodb://localhost:27017/projet_web/"
 
-const app = express();
-app.use(cors());
-
-// Autres configurations de votre application Express...
-
-// Montez les routes de l'API
-app.use('/api', api.default());
-
-// Démarrez le serveur
-const port = 4000; // Choisissez le port que vous souhaitez utiliser
-app.listen(port, () => {
-    console.log(`Serveur en cours d'exécution sur le port ${port}`);
-});
-
-module.exports = app;
 
 
 // Détermine le répertoire de base
 const basedir = path.normalize(path.dirname(__dirname));
 console.debug(`Base directory: ${basedir}`);
 
+const express = require('express');
+const app = express();
+api_1 = require("./api.js");
+const session = require("express-session");
 
 app.use(session({
     secret: "technoweb rocks",
@@ -34,6 +22,18 @@ app.use(session({
 }));
 
 app.use('/api', api.default());
+
+app.use(cors());
+app.use(express.json())
+mongoose.connect(mongo_url)
+const db = mongoose.connection;
+db.on('error', (err) =>{
+    console.error('Mongodb connection error: ', err)
+})
+
+db.once('open', ()=>{
+    console.log('MongoDB is connected')
+})
 
 // Démarre le serveur
 app.on('close', () => {

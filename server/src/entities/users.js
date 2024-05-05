@@ -1,4 +1,5 @@
 const { ObjectId } = require('mongodb');
+const UserModel = require('../models/User'); // Importez le modèle User défini avec Mongoose
 
 class Users {
   constructor(db) {
@@ -10,26 +11,27 @@ class Users {
 
   create(login, password, lastname, firstname) {
     return new Promise((resolve, reject) => {
-      // Création de l'objet utilisateur à insérer dans la base de données
-      const newUser = {
-        login: login,
-        password: password,
-        lastname: lastname,
-        firstname: firstname
-      };
+        // Création d'une nouvelle instance de l'utilisateur avec Mongoose
+        const newUser = new UserModel({
+            login: login,
+            password: password,
+            lastname: lastname,
+            firstname: firstname,
+            isAccepted: false,
+            isAdmin: false,
+            //profilePicture : pfp
+        });
 
-      // Insertion de l'utilisateur dans la base de données
-      this.collection.insertOne(newUser, (err, result) => {
-        if (err) {
-          reject(err); // En cas d'erreur lors de l'insertion
-        } else {
-          // Récupération de l'identifiant de l'utilisateur nouvellement inséré
-          const userId = result.insertedId;
-          resolve(userId); // Renvoie l'identifiant de l'utilisateur inséré
-        }
-      });
+        // Sauvegarde de l'utilisateur dans la base de données
+        newUser.save()
+            .then(user => {
+                resolve(user._id); // Renvoie l'identifiant de l'utilisateur sauvegardé
+            })
+            .catch(err => {
+                reject(err); // En cas d'erreur lors de la sauvegarde
+            });
     });
-  }
+}
 
   get(userid) {
     return new Promise((resolve, reject) => {

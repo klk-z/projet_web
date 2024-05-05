@@ -1,5 +1,6 @@
 const express = require("express");
 const Users = require("./entities/users.js");
+//const UserModel = require('./models/User')
 
 function init(db) {
     const router = express.Router();
@@ -12,26 +13,28 @@ function init(db) {
         console.log('Body', req.body);
         next();
     });
+
     const users = new Users.default(db);
-    router.post("/user/login", async (req, res) => {
+
+    router.post("/user/username", async (req, res) => {
         try {
-            const { login, password } = req.body;
+            const { username, password } = req.body;
             // Erreur sur la requête HTTP
-            if (!login || !password) {
+            if (!username || !password) {
                 res.status(400).json({
                     status: 400,
-                    "message": "Requête invalide : login et password nécessaires"
+                    "message": "Requête invalide : username et password nécessaires"
                 });
                 return;
             }
-            if(! await users.exists(login)) {
+            if(! await users.exists(username)) {
                 res.status(401).json({
                     status: 401,
                     message: "Utilisateur inconnu"
                 });
                 return;
             }
-            let userid = await users.checkpassword(login, password);
+            let userid = await users.checkpassword(username, password);
             if (userid) {
                 // Avec middleware express-session
                 req.session.regenerate(function (err) {
@@ -46,17 +49,17 @@ function init(db) {
                         req.session.userid = userid;
                         res.status(200).json({
                             status: 200,
-                            message: "Login et mot de passe accepté"
+                            message: "username et mot de passe accepté"
                         });
                     }
                 });
                 return;
             }
-            // Faux login : destruction de la session et erreur
+            // Faux username : destruction de la session et erreur
             req.session.destroy((err) => { });
             res.status(403).json({
                 status: 403,
-                message: "login et/ou le mot de passe invalide(s)"
+                message: "username et/ou le mot de passe invalide(s)"
             });
             return;
         }
@@ -86,17 +89,39 @@ function init(db) {
     })
         .delete((req, res, next) => res.send(`delete user ${req.params.user_id}`));
 
-        
-    router.put("/user", (req, res) => {
-        const { login, password, lastname, firstname } = req.body;
-        if (!login || !password || !lastname || !firstname) {
+
+    router.post("/user", (req, res) => {
+        const { username, password, lastname, firstname } = req.body;
+        if (!username || !password || !lastname || !firstname) {
             res.status(400).send("Missing fields");
         } else {
-            users.create(login, password, lastname, firstname)
+            users.create(username, password, lastname, firstname)
                 .then((user_id) => res.status(201).send({ id: user_id }))
                 .catch((err) => res.status(500).send(err));
         }
     });
+    /*    
+    router.post("/user", (req, res) => {
+        const { username, password, lastname, firstname } = req.body;
+        UserModel.findOne({username: username, password:password, lastname:lastname,
+        firstname:firstname }).
+        then(user => {
+            if(user){
+                res.json("Le nom d'utilisateur est déjà utilisé")
+            }else{
+                UserModel.create({
+                    username: username,
+                    password: password,
+                    lastname: lastname,
+                    firstname: firstname,
+                    isAccepted: false,
+                    isAdmin: false  
+                })
+                .then(result => res.json("Compte créé.")) // en attente de validation
+                .catch(err => res.json(err))
+            }
+        }).catch(err => res.json(err))
+    });*/
 
     return router;
 }

@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
+import axios from 'axios';
 import './App.css'
 
 function Signin({login, changePage}){
@@ -34,30 +35,26 @@ function Signin({login, changePage}){
 		alert("Les mots de passe sont différents !");
 	  } else {
 		const userData = {
-			login: username,
+			username: username,
 			password: pwd,
 			lastname: lastName,
 			firstname: firstName
 		  };
 
-		try {
-			const response =  await fetch('http://localhost:4000/api/user', {
-			  method: 'PUT',
-			  headers: {
-				'Content-Type': 'application/json'
-			  },
-			  body: JSON.stringify(userData)
-			});
-	  
-			if (!response.ok) {
-			  throw new Error('Erreur lors de la création du compte');
-			}
-			
-			// Effectuez d'autres actions après la création réussie de l'utilisateur, par exemple, redirigez l'utilisateur vers une autre page
-			changePage("waiting_room");
-		  } catch (error) {
-			alert("Une erreur s'est produite lors de la création de votre compte. Veuillez réessayer plus tard.");
-		  }
+		  try {
+            const response = await axios.post('http://localhost:4000/api/user', userData);
+
+            if (response.status === 201) {
+                console.log("Utilisateur créé avec succès:", response.data);
+                // Effectuez d'autres actions après la création réussie de l'utilisateur, par exemple, redirigez l'utilisateur vers une autre page
+                changePage("waiting_room");
+            } else {
+                throw new Error('Erreur lors de la création du compte');
+            }
+        } catch (error) {
+            console.log("Une erreur s'est produite lors de la création de votre compte:", error);
+            alert("Une erreur s'est produite lors de la création de votre compte. Veuillez réessayer plus tard.");
+        }
 		}
 	};
 	

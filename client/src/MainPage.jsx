@@ -5,6 +5,7 @@ import NavigationPanel from './NavigationPanel.jsx'
 import Forum from './Forum.jsx'
 import Signin from './Signin.jsx'
 import Login from './Login.jsx'
+import WaitingRoom from './WaitingRoom.jsx'
 import ProfilePage from './ProfilePage.jsx'
 
 

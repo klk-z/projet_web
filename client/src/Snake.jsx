@@ -1,4 +1,5 @@
 import './snake.css'
+import React from 'react'
 
 // utility functions
 function shallowEquals(arr1, arr2) {

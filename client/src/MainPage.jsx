@@ -17,7 +17,7 @@ function MainPage() {
     // Méthode pour se connecter et changer la page
     const getConnected = (event) => {
         setIsConnected(true); // Mettre isConnected à true pour indiquer que l'utilisateur est connecté 
-        setCurrentPage('forum');
+        // TODO remplacer par les données du user
         setUser({
             "username": "admin",
             "password": "admin",
@@ -28,6 +28,12 @@ function MainPage() {
             "newUser": false,
             "__v": 0
           })
+        
+        if (user.isBanned == true) { //ne marche pas?
+        alert("Vous avez été banni.");
+        } else {
+        setCurrentPage('forum');
+        }
     };
 
     const setLogout = () => {
@@ -53,7 +59,7 @@ function MainPage() {
             case "forum":
                 return <Forum user={user}/>
             case "profile_page":
-                return <ForuProfilePage user={user}/>
+                return <ProfilePage user={user}/>
             default:
                 return "Veuillez Rafraichir"
         }
@@ -62,7 +68,7 @@ function MainPage() {
 
     return (
         <>
-        <NavigationPanel login = {getConnected} logout={setLogout} isConnected={isConnected} changePage={changePage} user={user} />
+        <NavigationPanel login = {getConnected} logout={setLogout} isConnected={isConnected} setCurrentPage={changePage} user={user} />
         <div className="main_page">
 			{getPage()}
 		</div>

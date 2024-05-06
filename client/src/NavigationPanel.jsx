@@ -7,7 +7,7 @@ import logo from"./assets/reddit_pastel.png"
 import pfp from "./assets/default-profile-pic.jpg" 
 
 
-function NavigationPanel({login, logout, signin, isConnected, setCurrentPage, user }) {
+function NavigationPanel({login, logout, signin, isConnected, setCurrentPage, user}) {
     
     return (
       <nav id="navigation_pan">
@@ -16,6 +16,13 @@ function NavigationPanel({login, logout, signin, isConnected, setCurrentPage, us
 			    <div className="header_left">
             <img id="logo" src={logo} alt="blue reddit"/> 
           </div>
+          {/*isConnected && user.isAdmin ? (
+              <a>
+                <h3 className='admin_switch' href='#' onClick={ () => setCurrentPage("forum_admin")}>
+                admin
+                </h3>
+              </a>
+            ):<></>*/}
           <div className="header_middle">
             <h1>Tell'IT</h1>
             {isConnected && user ? (<>

@@ -8,9 +8,13 @@ import pfp from "./assets/default-profile-pic.jpg"
 
 
 
-function Forum() {
-    
+function Forum({user, search}) {
+    const [admin, setAdmin] = useState(false);
 
+	const handleSwitch = () => {
+		setAdmin(admin == false ? true : false);
+		//setCurrentPage(mode === 'admin' ? 'forum' : 'forum_admin');
+	};
     // const adminPage = False
     // const normalPage =
 
@@ -39,14 +43,26 @@ function Forum() {
     return (
         <>
         <h1>Forum</h1>
-		<div className="body_part">
-			<div className="zone_informations"><h2>Informations</h2>
-			</div>
-			<div className="zone_messages">
-				<div className="liste_messages"><ListMessages/>
-				</div>
+		
+		{user.isAdmin ?(
+			<h3 className='forum_switch' onClick={() => handleSwitch()}>
+			{admin == true ? '>forum<' : '>admin<'}
+		  </h3>
+		) : (<></>
+		)}
+		{admin ? 
+		<div className="zone_verification">
+			<h2>Nouveaux utilisateurs</h2>
+		</div>:<></>}
+		<div className="zone_informations">
+			<h2>Informations</h2>
+		</div>
+		<div className="zone_messages">
+			<div className="liste_messages">
+				<ListMessages adminMode={admin} search={search} user={user} />
 			</div>
 		</div>
+		
         </>
     );
     

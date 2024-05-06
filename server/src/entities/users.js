@@ -1,11 +1,10 @@
 const { ObjectId } = require('mongodb');
-const UserModel = require('../models/User'); // Importez le modèle User défini avec Mongoose
+const UserModel = require('../models/Message'); // Importez le modèle User défini avec Mongoose
 
 class Users {
   constructor(db) {
     this.db = db
     //this.collection = db.collection('users');
-
     // suite plus tard avec la BD
   }
 

@@ -1,5 +1,6 @@
 const express = require("express");
 const Users = require("./entities/users.js");
+const Messages = require("./entities/messages.js");
 const session = require('express-session');
 //const UserModel = require('./models/User')
 
@@ -16,6 +17,33 @@ function init(db) {
     });
 
     const users = new Users.default(db);
+    const messages = new Messages.default(db);
+
+    // créer un utilisateur
+    router.post("/user", (req, res) => {
+        const { username, password, lastname, firstname } = req.body;
+        if (!username || !password || !lastname || !firstname) {
+            res.status(400).send("Missing fields");
+        } else {
+            users.create(username, password, lastname, firstname)
+                .then((user_id) => res.status(201).send({ id: user_id }))
+                .catch((err) => res.status(500).send(err));
+        }
+    });
+
+    // créer un message
+    router.post("/message", (req, res) => {
+        const { title, content, user } = req.body;
+        if (!title || !content || !user) {
+            res.status(400).send("Missing fields");
+        } else {
+            messages.create(title, content, user)
+                .then((message_id) => res.status(201).send({ id: message_id }))
+                .catch((err) => res.status(500).send(err));
+        }
+    });
+
+
 
     router.post("/user/username", async (req, res) => {
         try {
@@ -156,16 +184,6 @@ function init(db) {
         .delete((req, res, next) => res.send(`delete user ${req.params.user_id}`));
 
 
-    router.post("/user", (req, res) => {
-        const { username, password, lastname, firstname } = req.body;
-        if (!username || !password || !lastname || !firstname) {
-            res.status(400).send("Missing fields");
-        } else {
-            users.create(username, password, lastname, firstname)
-                .then((user_id) => res.status(201).send({ id: user_id }))
-                .catch((err) => res.status(500).send(err));
-        }
-    });
     
     router.post('/user/login', async (req, res) => {
         try {

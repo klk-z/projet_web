@@ -4,14 +4,14 @@ import './App.css'
 
 
 
-function FormMessage({onAdd}) {
+function FormMessage({onAdd, user}) {
 
     function submitMessage(e){
         e.preventDefault()
         const title = e.target.title.value
         const content = e.target.content.value
         // author temporaire
-        return (onAdd({title: title, content: content, author: "Sharon", date: new Date()}))
+        return (onAdd({title: title, content: content, author: user.username, date: new Date()}))
 
     }
     

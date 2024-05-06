@@ -1,6 +1,6 @@
 const path = require('path');
 const api = require('./api.js');
-const db = require('./db/db.js')
+const db = require('./db/db.js');
 
 
 // Détermine le répertoire de base

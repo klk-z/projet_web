@@ -7,24 +7,24 @@ class Users {
         // Suite plus tard avec la BD
     }
 
-    create(username, password, lastname, firstname) {
+    create(username, password, lastname, firstname, isBanned, isAdmin, newUser) {
         return new Promise((resolve, reject) => {
             // Création d'une nouvelle instance de l'utilisateur
             if (false) {
                 reject();
               } else {
-            const newUser = {
+            const user = {
                 username: username,
                 password: password,
                 lastname: lastname,
                 firstname: firstname,
-                isBanned: false,
-                isAdmin: false,
-                newUser: true
+                isBanned: isBanned,
+                isAdmin: isAdmin,
+                newUser: newUser
             };
 
             // Insertion de l'utilisateur dans la base de données
-            this.db.collection('users').insertOne(newUser)
+            this.db.collection('users').insertOne(user)
                 .then((result) => {
                     resolve(result.insertedId);
                 })

@@ -44,7 +44,7 @@ function FormMessage({onAdd, user}) {
 
     return (
         <>
-		<form onSubmit={handleSubmit} id="formMessage">
+		<form onSubmit={handleSubmit} className='formMessage'>
         <h2>Share your thoughts</h2>
         <input type="text" name="title" id="title" placeholder="title" required/> <br></br>
         <textarea type="text" name="content" id="content" placeholder="content" required /> <br></br>

@@ -13,24 +13,31 @@ function init(db) {
     router.use((req, res, next) => {
         console.log('API: method %s, path %s', req.method, req.path);
         console.log('Body', req.body);
+
+        // Affichage des informations sur la réponse
+        res.on('finish', () => {
+            console.log('Response Status:', res.statusCode);
+            console.log('Response Body:', res.locals.data); // Vous pouvez accéder aux données de la réponse via res.locals.data
+        });
         next();
+
     });
 
     const users = new Users(db);
     const messages = new Messages(db);
 
     // Créer un utilisateur
-    router.put("/user", async (req, res) => {
-        const { username, password, lastname, firstname } = req.body;
+    router.post("/user", async (req, res) => {
+        const { username, password, lastname, firstname, isBanned, isAdmin, newUser } = req.body;
         if (!username || !password || !lastname || !firstname) {
             res.status(400).send("Champs manquants");
         } else {
             users
-            .create(username,password,firstname,lastname)
+            .create(username,password,firstname,lastname, isBanned, isAdmin, newUser)
             .then((user_id) =>
             res
                 .status(201)
-                .send({ id: user_id, username: login, is_admin: is_admin }),
+                .send({ id: user_id, username: username, isAdmin: isAdmin }),
             )
             .catch((err) => res.status(500).send(err));
         }

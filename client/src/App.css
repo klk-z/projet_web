@@ -55,7 +55,7 @@ form {
   border : 5px solid black ;
 }
 
-#formMessage {
+.formMessage {
   text-align: center;
 	display: grid;
 	grid-template-columns: 1fr;

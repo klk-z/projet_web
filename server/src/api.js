@@ -20,7 +20,7 @@ function init(db) {
     const messages = new Messages(db);
 
     // Créer un utilisateur
-    router.post("/user", async (req, res) => {
+    router.put("/user", async (req, res) => {
         const { username, password, lastname, firstname } = req.body;
         if (!username || !password || !lastname || !firstname) {
             res.status(400).send("Champs manquants");
@@ -37,18 +37,30 @@ function init(db) {
     });
 
     // Créer un message
-    router.post("/message", async (req, res) => {
+    router.post("/message", (req, res) => {
         const { title, content, author, date, isAdmin } = req.body;
         if (!title || !content || !author || !date || !isAdmin) {
             res.status(400).send("Champs manquants");
         } else {
-            try {
-                const message_id = await messages.create(title, content, author, date, isAdmin);
-                res.status(201).send({ id: message_id });
-            } catch (error) {
-                res.status(500).send(error.toString());
-            }
+            messages.create(title, content, author, date, isAdmin)
+                .then(message_id => {
+                    res.status(201).send({ id: message_id });
+                })
+                .catch(error => {
+                    res.status(500).send(error.toString());
+                });
         }
+    });
+
+    // Obtenir tous les messages
+    router.get("/messages", (req, res) => {
+        messages.getAll()
+            .then(messages => {
+                res.send(messages);
+            })
+            .catch(error => {
+                res.status(500).send(error.toString());
+            });
     });
 
     // Authentification utilisateur

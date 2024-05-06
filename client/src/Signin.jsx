@@ -64,7 +64,7 @@ function Signin({signin, changePage, setUser}){
     return (
     <>
     <h1>Créer un compte</h1>
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} id='signin_form'>
 			<label id="label_firstname" htmlFor="chp_firstname">Prénom</label><label id="label_lastname" htmlFor="chp_lastname">Nom</label>
 			<input id="chp_firstname" type="text" onChange={handleFirstNameChange} required /><input id="chp_lastname" type="text" onChange={handleLastNameChange} required />
 			<label htmlFor="chp_username">Nom d'utilisateur</label><input id="chp_username" type="text" onChange={handleUsernameChange} required />

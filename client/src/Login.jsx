@@ -53,7 +53,7 @@ function Login({login, changePage, setUser}) {
     return (
         <>
         <h1>Se connecter</h1>
-		<form onSubmit={login} >
+		<form onSubmit={login} id='login_form' >
 			<label htmlFor="chp_login">Nom d'utilisateur</label><input id="chp_login" type="text" value={username} onChange={handleUsernameChange} required />
 			<label htmlFor="chp_pwd">Mot de passe</label><input id="chp_pwd" type="password" value={password} onChange={handlePasswordChange} required />
 			<button type="submit">Connexion</button>

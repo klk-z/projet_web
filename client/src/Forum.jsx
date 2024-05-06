@@ -4,6 +4,7 @@ import ListMessages from './ListMessages.jsx'
 import './App.css'
 import logo from"./assets/reddit_pastel.png"
 import pfp from "./assets/default-profile-pic.jpg" 
+import FormMessage from './FormMessage.jsx'
 
 
 
@@ -45,9 +46,9 @@ function Forum({user, search}) {
         <h1>Forum</h1>
 		
 		{user.isAdmin ?(
-			<h3 className='forum_switch' onClick={() => handleSwitch()}>
+			<button className='forum_switch' onClick={() => handleSwitch()}>
 			{admin == true ? '>forum<' : '>admin<'}
-		  </h3>
+		  </button>
 		) : (<></>
 		)}
 		{admin ? 

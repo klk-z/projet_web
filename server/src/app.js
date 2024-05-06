@@ -1,8 +1,6 @@
 const path = require('path');
 const api = require('./api.js');
-const mongoose = require("mongoose")
-const mongo_url = "mongodb://127.0.0.1:27017/projet_web"
-
+const db = require('./db/db.js')
 
 
 // Détermine le répertoire de base
@@ -11,8 +9,13 @@ console.debug(`Base directory: ${basedir}`);
 
 const express = require('express');
 const app = express();
-api_1 = require("./api.js");
 const session = require("express-session");
+
+app.use(session({
+    secret: "technoweb rocks",
+    resave: true,
+    saveUninitialized: false
+}));
 
 const cors = require('cors')
 app.use(cors({
@@ -28,25 +31,10 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use(session({
-    secret: "technoweb rocks",
-    resave: true,
-    saveUninitialized: false
-}));
 
-app.use(express.json())
-mongoose.connect(mongo_url)
-const db = mongoose.connection;
-db.on('error', (err) =>{
-    console.error('Mongodb connection error: ', err)
+db.default().then(base => {
+    app.use('/api', api.default(base))
 })
-
-db.once('open', ()=>{
-    console.log('MongoDB is connected')
-})
-
-app.use('/api', api.default(mongoose));
-
 
 // Démarre le serveur
 app.on('close', () => {

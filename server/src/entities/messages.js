@@ -1,31 +1,42 @@
 const { ObjectId } = require('mongodb');
-const MessageModel = require('../models/Message'); // Importez le modèle Message défini avec Mongoose
 
 class Messages {
     constructor(db) {
-      this.db = db
-      //this.collection = db.collection('users');
-      // suite plus tard avec la BD
+        this.db = db;
     }
-    create(title, content, user) {
+
+    create(title, content, author, date, isAdmin) {
         return new Promise((resolve, reject) => {
-            // Création d'une nouvelle instance de message avec Mongoose
-            const newMessage = new MessageModel({
+            const newMessage = {
                 title: title,
                 content: content,
-                author: user.username,
-                date: new Date(),
-                isAdmin: user.isAdmin,
-            });
-
-            // Sauvegarde du message dans la base de données
-            newMessage.save()
-                .then(message => {
-                    resolve(message._id); // Renvoie l'identifiant du message sauvegardé
+                author: author,
+                date: date,
+                isAdmin: isAdmin,
+            };
+            this.db.collection('messages').insertOne(newMessage)
+                .then(result => {
+                    resolve(result.insertedId);
                 })
-                .catch(err => {
-                    reject(err); // En cas d'erreur lors de la sauvegarde
+                .catch(error => {
+                    reject(error);
+                });
+        });
+    }
+
+    getAll() {
+        return new Promise((resolve, reject) => {
+            this.db.collection('messages').find()
+                .sort({ date: -1 }) // Triez les messages par date, du plus récent au plus ancien
+                .toArray()
+                .then(messages => {
+                    resolve(messages);
+                })
+                .catch(error => {
+                    reject(error);
                 });
         });
     }
 }
+
+module.exports = Messages;

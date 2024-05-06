@@ -51,7 +51,9 @@ function MainPage() {
             case "login_page":
                 return <Login login={getConnected} changePage={changePage} setUser={setUser}/>
             case "forum":
-                return <Forum user ={user}/>
+                return <Forum user={user}/>
+            case "profile_page":
+                return <ForuProfilePage user={user}/>
             default:
                 return "Veuillez Rafraichir"
         }
@@ -61,7 +63,7 @@ function MainPage() {
     return (
         <>
         <NavigationPanel login = {getConnected} logout={setLogout} isConnected={isConnected} changePage={changePage} user={user} />
-        <div className="body_part">
+        <div className="main_page">
 			{getPage()}
 		</div>
         </>

@@ -13,8 +13,10 @@ function NavigationPanel({login, logout, signin, isConnected, setCurrentPage, us
       <nav id="navigation_pan">
         <div className="header_part">
 			    
-			    <div className="header_middle">
+			    <div className="header_left">
             <img id="logo" src={logo} alt="blue reddit"/> 
+          </div>
+          <div className="header_middle">
             <h1>Tell'IT</h1>
             {isConnected && user ? (<>
               <input type="search"/> <button>Chercher</button><br/>

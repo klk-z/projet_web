@@ -12,18 +12,28 @@ import ProfilePage from './ProfilePage.jsx'
 function MainPage() {
     const [currentPage, setCurrentPage] = useState('signin_page'); // Page de connexion par défaut
     const [isConnected, setIsConnected] = useState(false);
-    const [user, setUser] = useState("");
+    const [user, setUser] = useState({});
 
     // Méthode pour se connecter et changer la page
     const getConnected = (event) => {
         setIsConnected(true); // Mettre isConnected à true pour indiquer que l'utilisateur est connecté 
         setCurrentPage('forum');
-        setUser()
+        setUser({
+            "username": "admin",
+            "password": "admin",
+            "firstname": "admin",
+            "lastname": "admin",
+            "isBanned": false,
+            "isAdmin": true,
+            "newUser": false,
+            "__v": 0
+          })
     };
 
     const setLogout = () => {
-        //setCurrentPage('signin_page'); 
+        setCurrentPage('login_page'); 
         setIsConnected(false); 
+        setUser({})
     };
 
     const sendToCheck = () => {

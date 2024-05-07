@@ -19,7 +19,13 @@ function ListMessages({adminMode, search, user}) {
        ])
         
     useEffect(() => {
-    axios.get('http://localhost:4000/api/messages') 
+    let url = 'http://localhost:4000/api/messages';
+
+    if (adminMode) {
+        url = 'http://localhost:4000/api/messages/admin'; // URL pour les messages d'administrateurs
+    }
+
+    axios.get(url) 
         .then(response => {
             console.log(response.data)
             setMessages(response.data); // Met à jour l'état avec les données récupérées depuis le serveur
@@ -28,7 +34,7 @@ function ListMessages({adminMode, search, user}) {
         .catch(error => {
             console.error('Erreur lors de la récupération des messages:', error);
         });
-    }, []); // Le tableau vide en second argument assure que cette fonction est exécutée une seule fois lors du chargement initial du composant
+    }, [adminMode]); //est chargé lorsque que adminMode change
 
 
     

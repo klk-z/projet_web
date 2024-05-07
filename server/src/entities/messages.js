@@ -27,9 +27,13 @@ class Messages {
     getAll() {
         return new Promise((resolve, reject) => {
             this.db.collection('messages').find()
-                .sort({ date: -1 }) // Triez les messages par date, du plus récent au plus ancien
                 .toArray()
                 .then(messages => {
+                    // Tri des messages par date décroissante
+                    messages.sort((a, b) => {
+                        // Convertit les dates en objets Date et les compare
+                        return new Date(b.date) - new Date(a.date);
+                    });
                     resolve(messages);
                 })
                 .catch(error => {
@@ -37,6 +41,26 @@ class Messages {
                 });
         });
     }
+
+    getAdmin() {
+        return new Promise((resolve, reject) => {
+            this.db.collection('messages').find({isAdmin:true})
+                .toArray()
+                .then(messages => {
+                    // Tri des messages par date décroissante
+                    messages.sort((a, b) => {
+                        // Convertit les dates en objets Date et les compare
+                        return new Date(b.date) - new Date(a.date);
+                    });
+                    resolve(messages);
+                })
+                .catch(error => {
+                    reject(error);
+                });
+        });
+    }
+
+
 }
 
 module.exports = Messages;

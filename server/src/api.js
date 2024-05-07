@@ -105,6 +105,17 @@ function init(db) {
             });
     });
 
+    // Obtenir tous les messages
+    router.get("/messages/admin", (req, res) => {
+        messages.getAdmin()
+            .then(messages => {
+                res.send(messages);
+            })
+            .catch(error => {
+                res.status(500).send(error.toString());
+            });
+    });
+
     // Authentification utilisateur
     router.post("/user/login", async (req, res) => {
         try {

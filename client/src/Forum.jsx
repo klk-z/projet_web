@@ -3,10 +3,6 @@ import { useState } from 'react'
 import ListMessages from './ListMessages.jsx'
 import NewUsers from './NewUsers.jsx'
 import './App.css'
-import logo from"./assets/reddit_pastel.png"
-import pfp from "./assets/default-profile-pic.jpg" 
-import FormMessage from './FormMessage.jsx'
-
 
 
 
@@ -18,7 +14,7 @@ function Forum({user, search}) {
 		//setCurrentPage(mode === 'admin' ? 'forum' : 'forum_admin');
 	};
     
-	
+
     return (
         <>
         <h1>Forum</h1>

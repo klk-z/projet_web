@@ -33,7 +33,8 @@ function NewUsers() {
             })
             .catch(error => {
                 console.error('Erreur lors de la mise à jour de l\'utilisateur (approve):', error);
-            });*/
+            });
+            */
     };
 
     const handleReject = (userId) => {

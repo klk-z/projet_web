@@ -37,7 +37,7 @@ function init(db) {
             .then((user_id) =>
             res
                 .status(201)
-                .send({ id: user_id, username: username, isAdmin: isAdmin }),
+                .send({ id: user_id, username: username, lastname: lastname, firstname: firstname, isBanned: isBanned, isAdmin: isAdmin, newUser:newUser }),
             )
             .catch((err) => res.status(500).send(err));
         }
@@ -53,8 +53,9 @@ function init(db) {
                 res.status(500).send(error.toString());
             });
     });
-    /*
-    router.get("/users", (req, res) => {
+
+    // Get all users
+    router.get("/users/all", (req, res) => {
         users.getAll()
             .then(allUsers => {
                 res.send(allUsers);
@@ -64,9 +65,11 @@ function init(db) {
             });
     });
 
-    // Get users
+    // Get filtered users
+    /*
     router.get("/users", (req, res) => {
-        users.get(filters = req.query)
+        const filters = req.query
+        users.get(filters)
             .then(allUsers => {
                 res.send(allUsers);
             })
@@ -78,7 +81,7 @@ function init(db) {
     // Créer un message
     router.post("/message", (req, res) => {
         const { title, content, author, date, isAdmin } = req.body;
-        if (!title || !content || !author || !date || isAdmin == undefined) {
+        if (!title || !content || !author || !date ) {
             res.status(400).send("Champs manquants");
         } else {
             messages.create(title, content, author, date, isAdmin)

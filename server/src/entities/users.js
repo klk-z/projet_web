@@ -33,20 +33,7 @@ class Users {
             }
         });
     }
-
-    get(filters = {}) {
-        return new Promise((resolve, reject) => {
-            this.db.collection('users').find(filters)
-                .toArray()
-                .then(users => {
-                    resolve(users);
-                })
-                .catch(error => {
-                    reject(error);
-                });
-        });
-    }
-
+    
     getAll() {
         return new Promise((resolve, reject) => {
             this.db.collection('users').find()
@@ -66,6 +53,19 @@ class Users {
                 .toArray()
                 .then(allUsers => {
                     resolve(allUsers);
+                })
+                .catch(error => {
+                    reject(error);
+                });
+        });
+    }
+
+    get(filters = {}) {
+        return new Promise((resolve, reject) => {
+            this.db.collection('users').find(filters)
+                .toArray()
+                .then(users => {
+                    resolve(users);
                 })
                 .catch(error => {
                     reject(error);

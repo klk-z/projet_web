@@ -42,9 +42,6 @@ function MainPage() {
         setUser({})
     };
 
-    const sendToCheck = () => {
-        // envoie au admin pour etre checké accepté ou non (banned ?)
-    }
 
     const changePage = (page) => {
         setCurrentPage(page); 
@@ -53,7 +50,7 @@ function MainPage() {
     const getPage = () => {
         switch (currentPage) {
             case "signin_page":
-                return <Signin signin={sendToCheck} changePage={changePage}/>
+                return <Signin changePage={changePage} setUser={(setUser)}/>
             case "login_page":
                 return <Login login={getConnected} changePage={changePage} setUser={setUser}/>
             case "forum":

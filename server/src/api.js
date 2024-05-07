@@ -43,10 +43,42 @@ function init(db) {
         }
     });
 
+    // Get new users
+    router.get("/users/new", (req, res) => {
+        users.getNewUsers()
+            .then(allUsers => {
+                res.send(allUsers);
+            })
+            .catch(error => {
+                res.status(500).send(error.toString());
+            });
+    });
+    /*
+    router.get("/users", (req, res) => {
+        users.getAll()
+            .then(allUsers => {
+                res.send(allUsers);
+            })
+            .catch(error => {
+                res.status(500).send(error.toString());
+            });
+    });
+
+    // Get users
+    router.get("/users", (req, res) => {
+        users.get(filters = req.query)
+            .then(allUsers => {
+                res.send(allUsers);
+            })
+            .catch(error => {
+                res.status(500).send(error.toString());
+            });
+    });*/
+
     // Créer un message
     router.post("/message", (req, res) => {
         const { title, content, author, date, isAdmin } = req.body;
-        if (!title || !content || !author || !date || !isAdmin) {
+        if (!title || !content || !author || !date || isAdmin == undefined) {
             res.status(400).send("Champs manquants");
         } else {
             messages.create(title, content, author, date, isAdmin)
@@ -106,6 +138,27 @@ function init(db) {
             });
         }
     });
+    
+    // Mettre à jour un utilisateur par ID
+    router.put("/user/:user_id", async (req, res) => {
+        const userId = req.params.user_id;
+        const { newUser, isBanned } = req.body; // Nouvelles valeurs pour l'utilisateur
+
+        // Assurez-vous que l'utilisateur existe
+        const userExists = await users.getById(userId);
+        if (!userExists) {
+            return res.status(404).send("Utilisateur non trouvé");
+        }
+
+        // Mettre à jour les informations de l'utilisateur
+        try {
+            await users.update(userId, { newUser, isBanned });
+            res.status(200).send("Utilisateur mis à jour avec succès");
+        } catch (error) {
+            res.status(500).send("Erreur lors de la mise à jour de l'utilisateur");
+        }
+    });
+
 
     // Obtenir un utilisateur par ID
     router.get("/user/:user_id", async (req, res) => {

@@ -1,5 +1,4 @@
 const { ObjectId } = require('mongodb');
-const UserModel = require('../models/User'); // Importez le modèle User défini avec Mongoose
 
 class Users {
     constructor(db) {
@@ -35,7 +34,58 @@ class Users {
         });
     }
 
-    get(userid) {
+    get(filters = {}) {
+        return new Promise((resolve, reject) => {
+            this.db.collection('users').find(filters)
+                .toArray()
+                .then(users => {
+                    resolve(users);
+                })
+                .catch(error => {
+                    reject(error);
+                });
+        });
+    }
+
+    getAll() {
+        return new Promise((resolve, reject) => {
+            this.db.collection('users').find()
+                .toArray()
+                .then(allUsers => {
+                    resolve(allUsers);
+                })
+                .catch(error => {
+                    reject(error);
+                });
+        });
+    }
+
+    getNewUsers() {
+        return new Promise((resolve, reject) => {
+            this.db.collection('users').find({ newUser: true })
+                .toArray()
+                .then(allUsers => {
+                    resolve(allUsers);
+                })
+                .catch(error => {
+                    reject(error);
+                });
+        });
+    }
+
+    update(userId, newData) {
+        return new Promise((resolve, reject) => {
+            this.db.collection('users').updateOne({ _id: userId }, newData)
+                .then(() => {
+                    resolve();
+                })
+                .catch(error => {
+                    reject(error);
+                });
+        });
+    }
+
+    getById(userid) {
         return new Promise((resolve, reject) => {
             this.db.collection('users').findOne({ _id: ObjectId(userid) }, (err, user) => {
                 if (err) {

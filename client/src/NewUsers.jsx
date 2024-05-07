@@ -1,76 +1,71 @@
 import React, { useState, useEffect } from 'react';
-import Message from './Message.jsx'
-import FormMessage from './FormMessage.jsx'
 import './App.css'
 import axios from 'axios'
+import NewUserItem from './NewUserItem';
 
 
 
-function ListMessages({adminMode, search, user}) {
-    // TODO :
-    // mettre const message et form message dans forum ?
-    // connecter au serveur
-    // if adminMode : fetch les messages d'administrateurs
-    // if search : fetch les messages qui correspondent
-    const [messages, setMessages] = useState([
-       {title: "Mario", content: "mon film est au cinéma", author: "itsameeeee", date : new Date()},
-       {title: "Luigi", content: "c bizarre moi aussi", author: "itsameeeee2", date : new Date()},
-       {title: "Peach", content: "Mario! Viens me sauver!!!!", author: "itsayouuu", date : new Date()}
-       ])
+function NewUsers() {
+    
+    const [users, setUsers] = useState([])
         
     useEffect(() => {
-    axios.get('http://localhost:4000/api/messages') 
+    axios.get('http://localhost:4000/api/users/new') 
         .then(response => {
             console.log(response.data)
-            setMessages(response.data); // Met à jour l'état avec les données récupérées depuis le serveur
-            console.log(messages)
+            setUsers(response.data); // Met à jour l'état avec les données récupérées depuis le serveur
+            console.log(users)
         })
         .catch(error => {
-            console.error('Erreur lors de la récupération des messages:', error);
+            console.error('Erreur lors de la récupération des users:', error);
         });
     }, []); // Le tableau vide en second argument assure que cette fonction est exécutée une seule fois lors du chargement initial du composant
 
-
     
-    // TODO ajouter // supprimer message 
-    function addMessage(newMessage){
-        setMessages([newMessage,...messages])
-    }
+    const handleApprove = (userId) => {
+        /*
+        // Mettre à jour l'utilisateur avec l'ID donné pour marquer newUser à false
+        axios.put(`http://localhost:4000/api/user/${userId}`, { newUser: false , isBanned: false})
+            .then(response => {
+                // Mettre à jour la liste des utilisateurs après l'approbation
+                setUsers(users.filter(user => user._id !== userId));
+                console.log(response)
+            })
+            .catch(error => {
+                console.error('Erreur lors de la mise à jour de l\'utilisateur (approve):', error);
+            });*/
+    };
 
-    
+    const handleReject = (userId) => {
+        /*
+        // Mettre à jour l'utilisateur avec l'ID donné pour marquer newUser à false et isBanned à true
+        axios.put(`http://localhost:4000/api/user/${userId}`, { newUser: false, isBanned: true })
+            .then(response => {
+                // Mettre à jour la liste des utilisateurs après le rejet
+                setUsers(users.filter(user => user._id !== userId));
+            })
+            .catch(error => {
+                console.error('Erreur lors de la mise à jour de l\'utilisateur (reject):', error);
+            });*/
+    }; 
+
     return (
         <>
-            <FormMessage onAdd={addMessage} user={user} />
-            <h2>Latest posts</h2>
-            <ul id="list_messages">
-                {messages.map((message, index) => (
-                    <li key={index}>
-                        <Message
-                            title={message.title}
-                            content={message.content}
-                            author={message.author}
-                            date={new Date(message.date)}
-                        />
-                    </li>
+            <h2>Nouveaux utilisateurs</h2>
+            <ul id="list_new_users">
+                {users.map((newuser, index) => (
+                    <NewUserItem
+                        key={index}
+                        user={newuser}
+                        onApprove={handleApprove}
+                        onReject={handleReject}
+                    />
                 ))}
             </ul>
         </>
     );
-    //user temporaire
-    /*
-    return (
-        <>
-        <FormMessage onAdd={addMessage} user={user}/> 
-        <h2>Latest posts</h2>
-        <ul id="messages">
-            {messages.map((message, index) => <li key={index}>
-            <Message title={message.title} content={message.content} author={message.author} date={message.date}/>
-            </li>)}
-        </ul>
-        </>
-    );*/
 }
 
 
   
-export default ListMessages ;
+export default NewUsers ;

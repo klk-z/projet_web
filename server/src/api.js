@@ -1,6 +1,8 @@
 const express = require("express");
 const Users = require("./entities/users.js");
 const Messages = require("./entities/messages.js");
+const Replies = require("./entities/replies.js");
+
 const session = require('express-session');
 const { ObjectID } = require('mongodb');
 
@@ -25,6 +27,7 @@ function init(db) {
 
     const users = new Users(db);
     const messages = new Messages(db);
+    const replies = new Replies(db);
 
     // Créer un utilisateur
     router.post("/user", async (req, res) => {
@@ -154,14 +157,6 @@ function init(db) {
             res.status(500).send(error.toString());
         }
     });
-        /*await messages.getByUsername(username)
-            .then(messages => {
-                res.send(messages);
-            })
-            .catch(error => {
-                res.status(500).send(error.toString());
-            });
-    });*/
 
     // Obtenir tous les messages
     router.get("/messages/admin", (req, res) => {
@@ -173,6 +168,66 @@ function init(db) {
                 res.status(500).send(error.toString());
             });
     });
+
+    // Récupérer toutes les réponses d'un message
+    router.get("/message/:id/replies", async (req, res) => {
+        try {
+            const messageId = req.params.id;
+            const rep = await replies.getByParentId(messageId);
+            if (!rep) {
+                res.sendStatus(404);
+                console.log(rep);
+            } else {
+                res.send(rep);
+            }
+        } catch (error) {
+            res.status(500).send(error.toString());
+        }
+    });
+
+    // Ajouter une réponse à un message
+    router.post("/message/reply", async (req, res) => {
+        try {
+            const { content, author, date: dateString, isReplyTo } = req.body;
+            const date = new Date(dateString); // Convertir la date en objet Date
+            const replyData = { content, author, date, isReplyTo };
+            const replyId = await replies.create(replyData);
+            res.status(201).send({ id: replyId });
+        } catch (error) {
+            res.status(500).send(error.toString());
+        }
+    });
+
+    // Ajouter une réponse imbriquée à une réponse
+    router.post("/reply/reply", async (req, res) => {
+        try {
+            const { content, author, date: dateString, isReplyTo } = req.body;
+            const date = new Date(dateString); // Convertir la date en objet Date
+            const nestedReplyData = {content, author, date, isReplyTo} ;
+            const nestedReplyId = await replies.create(nestedReplyData);
+            res.status(201).send({ id: nestedReplyId });
+        } catch (error) {
+            res.status(500).send(error.toString());
+        }
+    });
+
+    // Get les réponses imbriquées à une réponse
+    router.get("/reply/:replyId/replies", async (req, res) => {
+        try {
+            const parentReplyId = req.params.replyId;
+            const nestedReplyId = await replies.getByParentId(parentReplyId);
+            if (!nestedReplyId) {
+                res.sendStatus(404);
+                console.log(nestedReplyId);
+            } else {
+                res.send(nestedReplyId);
+            }
+        } catch (error) {
+            res.status(500).send(error.toString());
+        }
+    });
+
+
 
     // Authentification utilisateur
     /*

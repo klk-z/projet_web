@@ -11,7 +11,7 @@ class Messages {
                 title: title,
                 content: content,
                 author: author,
-                date: date,
+                date: new Date(date),
                 isAdmin: isAdmin,
             };
             this.db.collection('messages').insertOne(newMessage)

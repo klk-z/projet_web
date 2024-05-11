@@ -59,7 +59,7 @@ function MainPage() {
             case "forum":
                 return <Forum user={user} changePage={changePage}/>
             case "profile_page":
-                return <ProfilePage username={usernameProfile} changePage={changePage}/>
+                return <ProfilePage user = {user} usernameProfile={usernameProfile} changePage={changePage}/>
             default:
                 return "Veuillez Rafraichir"
         }

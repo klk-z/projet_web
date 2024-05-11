@@ -65,7 +65,9 @@ function ListMessages({adminMode, search, user, changePage}) {
                             content={message.content}
                             author={message.author}
                             date={new Date(message.date)}
+                            id = {message._id}
                             changePage={changePage}
+                            user = {user}
                         />
                     </li>
                 ))}

@@ -4,14 +4,14 @@ import Message from './Message';
 import './App.css'
 import axios from 'axios';
 
-function ProfilePage({ username, changePage }) {
+function ProfilePage({user, usernameProfile, changePage }) {
     const [userData, setUserData] = useState(null);
     const [userMessages, setUserMessages] = useState([]);
 
     useEffect(() => {
         // Fonction pour récupérer les données de l'utilisateur
         const fetchUserData = async () => {
-            axios.get(`http://localhost:4000/api/user/${username}`)
+            axios.get(`http://localhost:4000/api/user/${usernameProfile}`)
             .then(response => {
                 console.log(response.data)
                 setUserData(response.data); // Met à jour l'état avec les données récupérées depuis le serveur
@@ -27,7 +27,7 @@ function ProfilePage({ username, changePage }) {
         
         // Fonction pour récupérer tous les messages de l'utilisateur
         const fetchUserMessages = async () => {
-            axios.get(`http://localhost:4000/api/user/${username}/messages`)
+            axios.get(`http://localhost:4000/api/user/${usernameProfile}/messages`)
             .then(response => {
                 console.log(response.data);
                 setUserMessages(response.data); // Met à jour l'état avec les données récupérées depuis le serveur
@@ -40,7 +40,7 @@ function ProfilePage({ username, changePage }) {
         // Appel de la fonction pour récupérer les messages de l'utilisateur
         fetchUserMessages();
 
-    }, [username]); // Exécuter l'effet lorsque le nom d'utilisateur change
+    }, [usernameProfile]); // Exécuter l'effet lorsque le nom d'utilisateur change
     
     return (
         <div>
@@ -63,6 +63,9 @@ function ProfilePage({ username, changePage }) {
                             content={message.content}
                             author={message.author}
                             date={new Date(message.date)}
+                            id = {message._id}
+                            changePage = {changePage}
+                            user = {user}
                         />
                     </li>
                 ))}

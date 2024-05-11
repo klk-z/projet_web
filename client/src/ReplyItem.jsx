@@ -77,7 +77,7 @@ function ReplyItem({ user, reply }) {
                     <button onClick={postNestedReply}>Post Nested Reply</button>
                 </div>
             )}
-            <button onClick={() => setShowReplyForm(prevState => !prevState)}>Reply</button> {/* Bouton pour afficher ou masquer le formulaire de réponse */}
+            <button onClick={() => setShowReplyForm(prevState => !prevState)}>{showReplyForm? "Cancel" : "Reply"}</button> {/* Bouton pour afficher ou masquer le formulaire de réponse */}
         </div>
     );
 }

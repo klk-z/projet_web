@@ -269,114 +269,35 @@ function init(db) {
         }
     });
 
-
-
-    // Authentification utilisateur
-    /*
+    // LOGIN
     router.post("/user/login", async (req, res) => {
         try {
             const { username, password } = req.body;
-    
+            console.log(req.body);
             if (!username || !password) {
-                return res.status(400).json({ error: 'Paramètre manquant' });
+                res.status(400).send("Nom d'utilisateur et mot de passe requis." );
+                return ;
             }
-    
-            const user = await users.getByUsername(username);
-            if (!user) {
-                return res.status(401).json({ error: 'Nom d\'utilisateur incorrect' });
-            }
-    
-            const passwordValid = await users.checkPassword(username, password);
-            if (!passwordValid) {
-                return res.status(401).json({ error: 'Mot de passe incorrect' });
-            }
-    
-            req.session.regenerate((err) => {
-                if (err) {
-                    return res.status(500).json({ error: 'Erreur lors de la génération de la session' });
-                }
-    
-                req.session.username = username;
-                req.session.cookie.maxAge = SESSION_DURATION;
-                return res.status(200).json({ success: 'Accès autorisé' });
-            });
-        } catch (error) {
-            console.error('Erreur lors de la connexion utilisateur :', error);
-            res.status(500).json({ error: 'Erreur interne du serveur' });
-        }
-    });*/
 
-    router.post("/user/login", async (req, res) => {
-        try {
-          let login = null;
-          let password = null;
-          if (req.session.userid) {
-            login = req.session.userid.login;
-            password = req.session.userid.password;
-          } else {
-            login = req.body.login;
-            password = req.body.password;
-          }
-          if (!login || !password) {
-            res.status(400).json({
-              status: 400,
-              message: "Requête invalide : login et password nécessaires",
-            });
-            return;
-          }
-          if (!(await users.exists(login))) {
-            res.status(401).json({
-              status: 401,
-              message: "Utilisateur inconnu",
-            });
-            return;
-          }
-          let userid = await users.checkPassword(login, password);
-          if (userid) {
-            // Avec middleware express-session
-            req.session.regenerate(function (err) {
-              if (err) {
-                res.status(500).json({
-                  status: 500,
-                  message: "Erreur interne",
-                });
-              } else {
-                // C'est bon, nouvelle session créée
-                req.session.userid = userid;
-                res.status(200).json({
-                  status: 200,
-                  message: "Login et mot de passe accepté",
-                  id: new ObjectID(userid._id),
-                  username: userid.username,
-                  firstname: userid.firstname,
-                  lastname: userid.lastname,
-                  isAdmin: userid.isAdmin,
-                  isBanned: userid.isBanned,
-                  newUser: userid.newUser,
-                });
-              }
-            });
-            return;
-          }
-          // Faux login : destruction de la session et erreur
-          req.session.destroy((err) => {});
-          res.status(403).json({
-            status: 403,
-            message: "login et/ou le mot de passe invalide(s)",
-          });
-          return;
-        } catch (e) {
-          // Toute autre erreur
-          res.status(500).json({
-            status: 500,
-            message: "erreur interne",
-            details: (e || "Erreur inconnue").toString(),
-          });
+            const userData = await users.getByUsername(username);
+            if (!userData) {
+                res.status(401).send("Utilisateur inconnu." );
+                return ; 
+            }
+
+            passwordValid = (password == userData.password) ;
+            if (!passwordValid) {
+                return res.status(402).send("Mot de passe incorrect." );
+            }
+
+            // Authentification réussie, envoie les informations de l'utilisateur
+            res.status(200).send(userData);
+        } catch (error) {
+            res.status(500).send("Erreur interne du serveur." );
         }
-      });
-    
-    
-    
+    });
+
+    //FIN LOGIN
 
     // Obtenir un utilisateur par ID
     router.get("/user/:user_id", async (req, res) => {

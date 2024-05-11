@@ -6,6 +6,7 @@ import './App.css'
 
 
 function FormMessage({onAdd, user}) {
+    
     /*
     function submitMessage(e){
         e.preventDefault()

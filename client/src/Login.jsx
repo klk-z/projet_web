@@ -20,7 +20,7 @@ function Login({login, changePage, setUser}) {
     /*
     async function try_login(){
         try {
-            await axios.get("http://localhost:5173/api/user/login", {
+            await axios.get("http://localhost:4000/api/user/login", {
                 params: {
                     username: username,
                     password: password
@@ -31,23 +31,26 @@ function Login({login, changePage, setUser}) {
         }
         login();
     }
-    
+   
     const loginUser = async (username, password) => {
         try {
-            const response = await axios.post('http://localhost:4000/api/user/username', {
-                username: username,
+            const response = await axios.post("http://localhost:4000/api/user/login", {
+                login: username,
                 password: password
+            }, {
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                withCredentials: true
             });
-            console.log(response.message); // Afficher le message de la réponse
-            console.log(response.user);
-            // Traitez la réponse selon vos besoins
-            setUser(response.user);
-            login();
+            setUser(response.data);
+            console.log(response.data);
         } catch (error) {
-            console.error(error);
-            // Gérez les erreurs
+            console.log(error);
         }
     };*/
+     
+
 
 
     return (
@@ -55,7 +58,7 @@ function Login({login, changePage, setUser}) {
         <h1>Se connecter</h1>
 		<form onSubmit={login} id="login_form">
 			<label htmlFor="chp_login">Nom d'utilisateur</label><input id="chp_login" type="text" value={username} onChange={handleUsernameChange} required />
-			<label htmlFor="chp_pwd">Mot de passe</label><input id="chp_pwd" type="password" value={password} onChange={handlePasswordChange} required />
+			<label htmlFor="chp_pwd">Mot de passe</label><input id="chp_pwd" type="password" value={password} onChange={handlePasswordChange}   autoComplete='on' required />
 			<button type="submit">Connexion</button>
 			<button type="reset">Annuler</button>
 		</form>

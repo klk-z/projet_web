@@ -37,8 +37,8 @@ function Signin({signin, changePage, setUser}){
 		const userData = {
 			username: username,
 			password: pwd,
-			lastname: lastName,
 			firstname: firstName,
+			lastname: lastName,
 			isBanned: false,
 			isAdmin: false,
 			newUser: true
@@ -71,8 +71,8 @@ function Signin({signin, changePage, setUser}){
 			<label id="label_firstname" htmlFor="chp_firstname">Prénom</label><label id="label_lastname" htmlFor="chp_lastname">Nom</label>
 			<input id="chp_firstname" type="text" onChange={handleFirstNameChange} required /><input id="chp_lastname" type="text" onChange={handleLastNameChange} required />
 			<label htmlFor="chp_username">Nom d'utilisateur</label><input id="chp_username" type="text" onChange={handleUsernameChange} required />
-			<label htmlFor="chp_pwd">Mot de passe</label><input id="chp_pwd" type="password" onChange={handlePwdChange} required />
-			<label htmlFor="chp_pwd2">Confirmez votre mot de passe</label><input id="chp_pwd2" type="password" onChange={handlePwd2Change} required />
+			<label htmlFor="chp_pwd">Mot de passe</label><input id="chp_pwd" type="password" onChange={handlePwdChange} autoComplete="on" required />
+			<label htmlFor="chp_pwd2">Confirmez votre mot de passe</label><input id="chp_pwd2" type="password" onChange={handlePwd2Change} autoComplete="on" required />
 			<button type="submit">Sign in</button>
 			<button type="reset">Annuler</button>
 	</form>

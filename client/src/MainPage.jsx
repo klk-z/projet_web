@@ -5,7 +5,6 @@ import NavigationPanel from './NavigationPanel.jsx'
 import Forum from './Forum.jsx'
 import Signin from './Signin.jsx'
 import Login from './Login.jsx'
-import WaitingRoom from './WaitingRoom.jsx'
 import ProfilePage from './ProfilePage.jsx'
 
 
@@ -13,6 +12,7 @@ function MainPage() {
     const [currentPage, setCurrentPage] = useState('signin_page'); // Page de connexion par défaut
     const [isConnected, setIsConnected] = useState(false);
     const [user, setUser] = useState({});
+    const [usernameProfile, setUsernameProfile] = useState(user.username)
 
     // Méthode pour se connecter et changer la page
     const getConnected = (event) => {
@@ -43,8 +43,11 @@ function MainPage() {
     };
 
 
-    const changePage = (page) => {
+    const changePage = (page, author) => {
         setCurrentPage(page); 
+        if (author){
+            setUsernameProfile(author);
+        }
     };
     
     const getPage = () => {
@@ -52,11 +55,11 @@ function MainPage() {
             case "signin_page":
                 return <Signin changePage={changePage} setUser={(setUser)}/>
             case "login_page":
-                return <Login login={getConnected} changePage={changePage} setUser={setUser}/>
+                return <Login login={getConnected} changePage={changePage} setUser={setUser} />
             case "forum":
-                return <Forum user={user}/>
+                return <Forum user={user} changePage={changePage}/>
             case "profile_page":
-                return <ProfilePage user={user}/>
+                return <ProfilePage username={usernameProfile} changePage={changePage}/>
             default:
                 return "Veuillez Rafraichir"
         }
@@ -65,7 +68,7 @@ function MainPage() {
 
     return (
         <>
-        <NavigationPanel login = {getConnected} logout={setLogout} isConnected={isConnected} setCurrentPage={changePage} user={user} />
+        <NavigationPanel login = {getConnected} logout={setLogout} isConnected={isConnected} changePage={changePage} user={user} />
         <div className="main_page">
 			{getPage()}
 		</div>

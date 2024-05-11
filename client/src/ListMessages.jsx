@@ -6,12 +6,13 @@ import axios from 'axios'
 
 
 
-function ListMessages({adminMode, search, user}) {
+function ListMessages({adminMode, search, user, changePage}) {
     // TODO :
     // mettre const message et form message dans forum ?
     // connecter au serveur
     // if adminMode : fetch les messages d'administrateurs
     // if search : fetch les messages qui correspondent
+    const [isForm, setIsForm] = useState(false);
     const [messages, setMessages] = useState([
        {title: "Mario", content: "mon film est au cinéma", author: "itsameeeee", date : new Date()},
        {title: "Luigi", content: "c bizarre moi aussi", author: "itsameeeee2", date : new Date()},
@@ -42,13 +43,21 @@ function ListMessages({adminMode, search, user}) {
     function addMessage(newMessage){
         setMessages([newMessage,...messages])
     }
+    const handleSwitch = () => {
+		setIsForm(isForm == false ? true : false);
+	};
 
     
     return (
         <>
-            <FormMessage onAdd={addMessage} user={user} />
+			<button className='form_switch' onClick={() => handleSwitch()}>
+			{isForm == false ? 'Poster un message' : 'Annuler'}
+		    </button>
+		{isForm ? 
+            <FormMessage onAdd={addMessage} user={user} /> 
+        : <></>}
             <h2>Latest posts</h2>
-            <ul id="list_messages">
+            <ul id="list_messages" className="no-bullets">
                 {messages.map((message, index) => (
                     <li key={index}>
                         <Message
@@ -56,6 +65,7 @@ function ListMessages({adminMode, search, user}) {
                             content={message.content}
                             author={message.author}
                             date={new Date(message.date)}
+                            changePage={changePage}
                         />
                     </li>
                 ))}

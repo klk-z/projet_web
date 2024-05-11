@@ -42,6 +42,19 @@ class Messages {
         });
     }
 
+    getByUsername(us) {
+        return new Promise((resolve, reject) => {
+            this.db.collection('messages').find({author: us})
+                .toArray()
+                .then(messages => {
+                    resolve(messages);
+                })
+                .catch(error => {
+                    reject(error);
+                });
+        });
+    }
+
     getAdmin() {
         return new Promise((resolve, reject) => {
             this.db.collection('messages').find({isAdmin:true})

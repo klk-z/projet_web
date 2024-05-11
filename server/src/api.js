@@ -28,7 +28,7 @@ function init(db) {
 
     // Créer un utilisateur
     router.post("/user", async (req, res) => {
-        const { username, password, lastname, firstname, isBanned, isAdmin, newUser } = req.body;
+        const { username, password,  firstname, lastname, isBanned, isAdmin, newUser } = req.body;
         if (!username || !password || !lastname || !firstname) {
             res.status(400).send("Champs manquants");
         } else {
@@ -37,7 +37,7 @@ function init(db) {
             .then((user_id) =>
             res
                 .status(201)
-                .send({ id: user_id, username: username, lastname: lastname, firstname: firstname, isBanned: isBanned, isAdmin: isAdmin, newUser:newUser }),
+                .send({ id: user_id, username: username, firstname: firstname, lastname: lastname, isBanned: isBanned, isAdmin: isAdmin, newUser:newUser }),
             )
             .catch((err) => res.status(500).send(err));
         }
@@ -64,6 +64,41 @@ function init(db) {
                 res.status(500).send(error.toString());
             });
     });
+
+    // Obtenir un utilisateur par nom d'utilisateur
+   /* router.get("/user/:username", async (req, res) => {
+        try {
+            const username = req.params.username;
+            console.log("username ", username)
+            const user = await users.getByUsername(username);
+            if (!user) {
+                res.sendStatus(404);
+                console.log(user);
+            } else {
+                res.send(user);
+            }
+        } catch (error) {
+            res.status(500).send(error.toString());
+        }
+    });*/
+
+    router.get("/user/:username", async (req, res) => {
+        try {
+            const username = req.params.username;
+            console.log(username);
+            const user = await users.getByUsername(username);
+            if (!user) {
+                res.sendStatus(404);
+                console.log(user);
+            } else {
+                res.send(user);
+            }
+        } catch (error) {
+            res.status(500).send(error.toString());
+        }
+    });
+
+
 
     // Get filtered users
     /*
@@ -105,6 +140,29 @@ function init(db) {
             });
     });
 
+    router.get("/user/:username/messages", async (req, res) => {
+        try {
+            const username = req.params.username;
+            const mes = await messages.getByUsername(username);
+            if (!mes) {
+                res.sendStatus(404);
+                console.log(mes);
+            } else {
+                res.send(mes);
+            }
+        } catch (error) {
+            res.status(500).send(error.toString());
+        }
+    });
+        /*await messages.getByUsername(username)
+            .then(messages => {
+                res.send(messages);
+            })
+            .catch(error => {
+                res.status(500).send(error.toString());
+            });
+    });*/
+
     // Obtenir tous les messages
     router.get("/messages/admin", (req, res) => {
         messages.getAdmin()
@@ -117,41 +175,109 @@ function init(db) {
     });
 
     // Authentification utilisateur
+    /*
     router.post("/user/login", async (req, res) => {
         try {
             const { username, password } = req.body;
-
+    
             if (!username || !password) {
-                return res.status(400).json('Paramètre manquant');
+                return res.status(400).json({ error: 'Paramètre manquant' });
             }
-
+    
             const user = await users.getByUsername(username);
             if (!user) {
-                return res.status(401).json('Utilisateur inconnu');
+                return res.status(401).json({ error: 'Nom d\'utilisateur incorrect' });
             }
-
+    
             const passwordValid = await users.checkPassword(username, password);
             if (!passwordValid) {
-                return res.status(401).json('Mot de passe incorrect');
+                return res.status(401).json({ error: 'Mot de passe incorrect' });
             }
-
+    
             req.session.regenerate((err) => {
                 if (err) {
-                    return res.status(504).json('Erreur de base de données');
+                    return res.status(500).json({ error: 'Erreur lors de la génération de la session' });
                 }
-
+    
                 req.session.username = username;
                 req.session.cookie.maxAge = SESSION_DURATION;
-                return res.status(200).json('Accès autorisé');
+                return res.status(200).json({ success: 'Accès autorisé' });
             });
         } catch (error) {
-            res.status(500).json({
-                status: 500,
-                message: "Erreur interne",
-                details: error.toString()
-            });
+            console.error('Erreur lors de la connexion utilisateur :', error);
+            res.status(500).json({ error: 'Erreur interne du serveur' });
         }
-    });
+    });*/
+
+    router.post("/user/login", async (req, res) => {
+        try {
+          let login = null;
+          let password = null;
+          if (req.session.userid) {
+            login = req.session.userid.login;
+            password = req.session.userid.password;
+          } else {
+            login = req.body.login;
+            password = req.body.password;
+          }
+          if (!login || !password) {
+            res.status(400).json({
+              status: 400,
+              message: "Requête invalide : login et password nécessaires",
+            });
+            return;
+          }
+          if (!(await users.exists(login))) {
+            res.status(401).json({
+              status: 401,
+              message: "Utilisateur inconnu",
+            });
+            return;
+          }
+          let userid = await users.checkPassword(login, password);
+          if (userid) {
+            // Avec middleware express-session
+            req.session.regenerate(function (err) {
+              if (err) {
+                res.status(500).json({
+                  status: 500,
+                  message: "Erreur interne",
+                });
+              } else {
+                // C'est bon, nouvelle session créée
+                req.session.userid = userid;
+                res.status(200).json({
+                  status: 200,
+                  message: "Login et mot de passe accepté",
+                  id: new ObjectID(userid._id),
+                  username: userid.username,
+                  firstname: userid.firstname,
+                  lastname: userid.lastname,
+                  isAdmin: userid.isAdmin,
+                  isBanned: userid.isBanned,
+                  newUser: userid.newUser,
+                });
+              }
+            });
+            return;
+          }
+          // Faux login : destruction de la session et erreur
+          req.session.destroy((err) => {});
+          res.status(403).json({
+            status: 403,
+            message: "login et/ou le mot de passe invalide(s)",
+          });
+          return;
+        } catch (e) {
+          // Toute autre erreur
+          res.status(500).json({
+            status: 500,
+            message: "erreur interne",
+            details: (e || "Erreur inconnue").toString(),
+          });
+        }
+      });
+    
     
     // Mettre à jour un utilisateur par ID
     router.put("/user/:user_id", async (req, res) => {

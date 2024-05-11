@@ -6,7 +6,7 @@ class Users {
         // Suite plus tard avec la BD
     }
 
-    create(username, password, lastname, firstname, isBanned, isAdmin, newUser) {
+    create(username, password, firstname,  lastname, isBanned, isAdmin, newUser) {
         return new Promise((resolve, reject) => {
             // Création d'une nouvelle instance de l'utilisateur
             if (false) {
@@ -15,8 +15,8 @@ class Users {
             const user = {
                 username: username,
                 password: password,
-                lastname: lastname,
                 firstname: firstname,
+                lastname: lastname,
                 isBanned: isBanned,
                 isAdmin: isAdmin,
                 newUser: newUser
@@ -33,7 +33,7 @@ class Users {
             }
         });
     }
-    
+
     getAll() {
         return new Promise((resolve, reject) => {
             this.db.collection('users').find()
@@ -85,6 +85,18 @@ class Users {
         });
     }
 
+    getByUsername(us) {
+        return new Promise((resolve, reject) => {
+            this.db.collection('users').findOne({ username: us })
+            .then((res) => {
+                resolve(res);
+            })
+            .catch(error => {
+                reject(error);
+            });
+    });
+    }
+
     getById(userid) {
         return new Promise((resolve, reject) => {
             this.db.collection('users').findOne({ _id: ObjectId(userid) }, (err, user) => {
@@ -97,17 +109,8 @@ class Users {
         });
     }
 
-    async exists(username) {
-        return new Promise((resolve, reject) => {
-            this.db.collection('users').findOne({ username: username }, (err, user) => {
-                if (err) {
-                    reject(err); // En cas d'erreur lors de la recherche
-                } else {
-                    resolve(user ? true : false); // Renvoie true si l'utilisateur existe, sinon false
-                }
-            });
-        });
-    }
+    
+    
 
     checkPassword(username, password) {
         return new Promise((resolve, reject) => {
@@ -116,6 +119,18 @@ class Users {
                     reject(err); // En cas d'erreur lors de la recherche de l'utilisateur
                 } else {
                     resolve(user ? user._id : null); // Renvoie l'identifiant de l'utilisateur si les informations de connexion sont correctes, sinon null
+                }
+            });
+        });
+    }
+
+    async exists(username) {
+        return new Promise((resolve, reject) => {
+            this.db.collection('users').findOne({ username: username }, (err, user) => {
+                if (err) {
+                    reject(err); // En cas d'erreur lors de la recherche
+                } else {
+                    resolve(user ? true : false); // Renvoie true si l'utilisateur existe, sinon false
                 }
             });
         });

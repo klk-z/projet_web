@@ -7,8 +7,15 @@ import logo from"./assets/reddit_pastel.png"
 import pfp from "./assets/default-profile-pic.jpg" 
 
 
-function NavigationPanel({login, logout, signin, isConnected, setCurrentPage, user}) {
-    
+function NavigationPanel({login, logout, signin, isConnected, changePage, user}) {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const handleToggleMenu = () => {
+      setMenuOpen(!menuOpen);
+  };
+
+  
+
     return (
       <nav id="navigation_pan">
         <div className="header_part">
@@ -16,13 +23,6 @@ function NavigationPanel({login, logout, signin, isConnected, setCurrentPage, us
 			    <div className="header_left">
             <img id="logo" src={logo} alt="blue reddit"/> 
           </div>
-          {/*isConnected && user.isAdmin ? (
-              <a>
-                <h3 className='admin_switch' href='#' onClick={ () => setCurrentPage("forum_admin")}>
-                admin
-                </h3>
-              </a>
-            ):<></>*/}
           <div className="header_middle">
             <h1>Tell'IT</h1>
             {isConnected && user ? (<>
@@ -32,11 +32,23 @@ function NavigationPanel({login, logout, signin, isConnected, setCurrentPage, us
             ):<></>}
           </div>
           <div className="liens">
-            { user && user.pfp ?
-            (<img id="profile_pic" src={user.pfp} alt="Photo de profil"/>) :
-				    (<img id="profile_pic" src={pfp} alt="Photo de profil"/>)
-            }
-			    </div>
+            {isConnected?(
+            <div className="profile-pic" onClick={handleToggleMenu}>
+              
+                {user && user.pfp ? (
+                    <img id="profile_pic" src={user.pfp} alt="Photo de profil" />
+                ) : (
+                    <img id="profile_pic" src={pfp} alt="Photo de profil" />
+                )}
+                @{user.username}
+            </div>):<></>}
+            {menuOpen && isConnected && (
+                <div className="menu">
+                    <button onClick={ () => changePage("profile_page")}>Profile Page</button>
+                    <button onClick={logout}>Logout</button>
+                </div>
+            )}
+            </div>
         </div>
         {/*isConnected ? <Logout logout={logout} changePage={setCurrentPage}/> : <Login login={login} changePage={setCurrentPage}/>*/}
       </nav>

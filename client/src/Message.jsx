@@ -4,14 +4,14 @@ import './App.css'
 
 
 
-function Message({ title, content, author, date }) {
+function Message({ title, content, author, date, changePage}) {
     return (
       <div className="message">
         <h3>{title}</h3>
         <p>{content}</p>
         <div>
-          <span>Author: {author} </span>
-          <span>Date: {date.toLocaleDateString()}</span>
+          <span onClick={ () => changePage("profile_page", author)} >@{author} </span>
+          <span>{date.toLocaleDateString()}</span>
         </div>
       </div>
     );

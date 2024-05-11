@@ -6,7 +6,7 @@ import './App.css'
 
 
 
-function Forum({user, search}) {
+function Forum({user, search, changePage}) {
     const [admin, setAdmin] = useState(false);
 
 	const handleSwitch = () => {
@@ -18,26 +18,28 @@ function Forum({user, search}) {
     return (
         <>
         <h1>Forum</h1>
-		
-		{user.isAdmin ?(
-			<button className='forum_switch' onClick={() => handleSwitch()}>
-			{admin == true ? '>forum<' : '>admin<'}
-		  </button>
-		) : (<></>
-		)}
-		{admin ? 
-		<div className="zone_verification">
-			<NewUsers/>
-		</div>:<></>}
-		<div className="zone_informations">
-			<h2>Informations</h2>
+		<div className="forum-container">
+		<div className="panel_left">
+			{user.isAdmin ?(
+				<button className='forum_switch' onClick={() => handleSwitch()}>
+				{admin == true ? '>forum<' : '>admin<'}
+			</button>
+			) : (<></>
+			)}
+			{admin ? 
+			<div className="zone_verification">
+				<NewUsers/>
+			</div>:<></>}
+			<div className="zone_informations">
+				<h2>Informations</h2>
+			</div>
 		</div>
 		<div className="zone_messages">
 			<div className="liste_messages">
-				<ListMessages adminMode={admin} search={search} user={user} />
+				<ListMessages adminMode={admin} search={search} user={user} changePage={changePage}/>
 			</div>
 		</div>
-		
+		</div>
         </>
     );
     

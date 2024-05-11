@@ -6,7 +6,7 @@ import axios from 'axios'
 
 
 
-function ListMessages({adminMode, search, user, changePage}) {
+function ListMessages({adminMode, user, changePage}) {
     // TODO :
     // mettre const message et form message dans forum ?
     // connecter au serveur

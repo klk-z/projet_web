@@ -1,6 +1,6 @@
 import React from 'react';
 
-function NewUserItem({ user, onApprove, onReject }) {
+function NewUserItem({ user, onApprove, onReject}) {
     const handleApprove = () => {
         onApprove(user._id); // Appeler la fonction onApprove avec l'ID de l'utilisateur
     };
@@ -11,7 +11,7 @@ function NewUserItem({ user, onApprove, onReject }) {
 
     return (
         <li>
-            <span>{user.username}</span><br></br>
+            <span>@{user.username}</span>            
             <button onClick={handleApprove}>OK</button>
             <button onClick={handleReject}>Non</button>
         </li>

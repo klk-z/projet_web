@@ -73,16 +73,19 @@ class Users {
         });
     }
 
-    update(userId, newData) {
-        return new Promise((resolve, reject) => {
-            this.db.collection('users').updateOne({ _id: userId }, newData)
-                .then(() => {
-                    resolve();
-                })
-                .catch(error => {
-                    reject(error);
-                });
-        });
+    async update(userId, newData) {
+        try {
+            const result = await this.db.collection('users').updateOne(
+                { _id: new ObjectId(userId) },
+                { $set: newData }
+            );
+            if (result.modifiedCount === 0) {
+                throw new Error("Aucun utilisateur n'a été mis à jour");
+            }
+            return result;
+        } catch (error) {
+            throw new Error(`Erreur lors de la mise à jour de l'utilisateur : ${error.message}`);
+        }
     }
 
     getByUsername(us) {
@@ -99,12 +102,12 @@ class Users {
 
     getById(userid) {
         return new Promise((resolve, reject) => {
-            this.db.collection('users').findOne({ _id: ObjectId(userid) }, (err, user) => {
-                if (err) {
-                    reject(err); // En cas d'erreur lors de la recherche
-                } else {
-                    resolve(user); // Renvoie l'utilisateur trouvé ou null s'il n'existe pas
-                }
+            this.db.collection('users').findOne({ _id: new ObjectId(userid) })
+            .then(user => {
+                resolve(user);
+            })
+            .catch(error => {
+                reject(error);
             });
         });
     }

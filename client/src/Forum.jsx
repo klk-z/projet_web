@@ -6,12 +6,11 @@ import './App.css'
 
 
 
-function Forum({user, search, changePage}) {
+function Forum({user, changePage}) {
     const [admin, setAdmin] = useState(false);
 
 	const handleSwitch = () => {
 		setAdmin(admin == false ? true : false);
-		//setCurrentPage(mode === 'admin' ? 'forum' : 'forum_admin');
 	};
     
 
@@ -36,7 +35,7 @@ function Forum({user, search, changePage}) {
 		</div>
 		<div className="zone_messages">
 			<div className="liste_messages">
-				<ListMessages adminMode={admin} search={search} user={user} changePage={changePage}/>
+				<ListMessages adminMode={admin} user={user} changePage={changePage}/>
 			</div>
 		</div>
 		</div>

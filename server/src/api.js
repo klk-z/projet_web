@@ -227,6 +227,48 @@ function init(db) {
         }
     });
 
+    // Mettre à jour un utilisateur par ID
+    router.put("/user/:user_id/approve", async (req, res) => {
+        const userId = req.params.user_id;
+        console.log(userId)
+        // Assurez-vous que l'utilisateur existe
+        const userExists = await users.getById(userId);
+        if (!userExists) {
+            console.log('util pas exite')
+
+            res.status(404).send("Utilisateur non trouvé");
+        } else{
+            console.log("user existe ",userExists);
+            // Mettre à jour les informations de l'utilisateur
+            try {
+                await users.update(userId, { newUser:false, isBanned:false });
+                res.status(200).send("Utilisateur mis à jour avec succès (approved)");
+            } catch (error) {
+                res.status(500).send("Erreur lors de la mise à jour de l'utilisateur");
+            }
+        }
+    });
+
+    // Mettre à jour un utilisateur par ID
+    router.put("/user/:user_id/reject", async (req, res) => {
+        const userId = req.params.user_id;
+        console.log(userId)
+        // Assurez-vous que l'utilisateur existe
+        const userExists = await users.getById(userId);
+        if (!userExists) {
+            res.status(404).send("Utilisateur non trouvé");
+        } else{
+            console.log("user existe ",userExists);
+            // Mettre à jour les informations de l'utilisateur
+            try {
+                await users.update(userId, { newUser:false, isBanned:true });
+                res.status(200).send("Utilisateur mis à jour avec succès (banni)");
+            } catch (error) {
+                res.status(500).send("Erreur lors de la mise à jour de l'utilisateur");
+            }
+        }
+    });
+
 
 
     // Authentification utilisateur
@@ -334,26 +376,7 @@ function init(db) {
       });
     
     
-    // Mettre à jour un utilisateur par ID
-    router.put("/user/:user_id", async (req, res) => {
-        const userId = req.params.user_id;
-        const { newUser, isBanned } = req.body; // Nouvelles valeurs pour l'utilisateur
-
-        // Assurez-vous que l'utilisateur existe
-        const userExists = await users.getById(userId);
-        if (!userExists) {
-            return res.status(404).send("Utilisateur non trouvé");
-        }
-
-        // Mettre à jour les informations de l'utilisateur
-        try {
-            await users.update(userId, { newUser, isBanned });
-            res.status(200).send("Utilisateur mis à jour avec succès");
-        } catch (error) {
-            res.status(500).send("Erreur lors de la mise à jour de l'utilisateur");
-        }
-    });
-
+    
 
     // Obtenir un utilisateur par ID
     router.get("/user/:user_id", async (req, res) => {

@@ -15,7 +15,7 @@ function MainPage() {
     const [usernameProfile, setUsernameProfile] = useState(user.username)
 
     // Méthode pour se connecter et changer la page
-    const getConnected = (event) => {
+    const getConnected = async (event) => {
         setIsConnected(true); // Mettre isConnected à true pour indiquer que l'utilisateur est connecté 
         // TODO remplacer par les données du user
         setUser({
@@ -27,13 +27,10 @@ function MainPage() {
             "isAdmin": true,
             "newUser": false,
             "__v": 0
-          })
+          });
         
-        if (user.isBanned == true) { //ne marche pas?
-        alert("Vous avez été banni.");
-        } else {
-        setCurrentPage('forum');
-        }
+        changePage('forum');
+
     };
 
     const setLogout = () => {
@@ -44,6 +41,10 @@ function MainPage() {
 
 
     const changePage = (page, author) => {
+        if (user.isBanned){
+            alert("Vous avez été banni.");
+            return ;
+        }
         setCurrentPage(page); 
         if (author){
             setUsernameProfile(author);
@@ -53,7 +54,7 @@ function MainPage() {
     const getPage = () => {
         switch (currentPage) {
             case "signin_page":
-                return <Signin changePage={changePage} setUser={(setUser)}/>
+                return <Signin changePage={changePage} setUser={setUser}/>
             case "login_page":
                 return <Login login={getConnected} changePage={changePage} setUser={setUser} />
             case "forum":

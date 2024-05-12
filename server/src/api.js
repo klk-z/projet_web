@@ -166,6 +166,21 @@ function init(db) {
       });
   });
 
+  /* Partie correspondant à la recherche avec la SearchBar 
+  // Rechercher des messages en fonction de mots-clés
+  router.get('/search/messages', async (req, res) => {
+    try {
+      const query = req.query.query;
+      const keywords = query.split(' ');
+      const messages = await messages.find(keywords.map(keyword => ({ "$text" : { "$search" : keyword} })) );
+      console.log(keywords);
+      res.json(messages);
+    } catch (error) {
+      res.status(500).send(error.toString());
+    }
+  });
+  */
+
   // Récupérer toutes les réponses d'un message
   router.get("/message/:id/replies", async (req, res) => {
     try {

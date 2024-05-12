@@ -1,8 +1,17 @@
-# React + Vite
+# Tell'IT
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Projet de l'UE Technologies du Web (LU3IN017) à Sorbonne Université.
+Développement d'un application MERNstack.
 
-Currently, two official plugins are available:
+## Lancement de l'application
+Partie serveur :
+Dans projet_web/server, lancer 'npm install' puis 'npm run serve' 
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Partie client :
+dans projet_web/, lancer 'npm install' puis 'npm run dev'
+
+## Initialiser la base de données
+Dans projet_web/server/db/ ont été exportées les collections 'users', 'messages', et 'replies' de notre base de données 'projet_web'.
+La base de données MongoDB et est connectée localement par l'url 'http://localhost:27017'
+
+Vous trouverez également dans ce dossier la collection des requêtes postman qui ont permi de tester notre api.

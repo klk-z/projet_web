@@ -152,6 +152,28 @@ class Users {
         });
     });
   }
+
+  delete(user_id) {
+    return new Promise((resolve, reject) => {
+      this.db
+        .collection("users")
+        .deleteOne({ _id: new ObjectId(user_id) })
+        .then((result) => {
+          if (result.deletedCount === 1) {
+            resolve(result);
+          } else {
+            reject(
+              new Error(
+                "L\'utilisateur n'a pas été trouvé ou n'a pas pu être supprimé."
+              )
+            );
+          }
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  }
 }
 
 module.exports = Users;

@@ -1,0 +1,353 @@
+{
+	"info": {
+		"_postman_id": "7115bf8d-37cf-49e6-a7e9-c2438c02daab",
+		"name": "projet_web",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32547891"
+	},
+	"item": [
+		{
+			"name": "Créer un utilisateur",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"username\": \"newuser\",\n  \"password\": \"newpass\",\n  \"firstname\": \"newfirst\",\n  \"lastname\": \"newlast\",\n  \"isBanned\": false,\n  \"isAdmin\": false,\n  \"newUser\": true\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtenir tous les utilisateurs",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/api/users/all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"users",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtenir tous les nouveaux utilisateurs",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/api/users/new",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"users",
+						"new"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtenir un utilisateur par nom d'utilisateur",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/api/user/mario",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"user",
+						"mario"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtenir un utilisateur par ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/api/user/id/66388d731ca349202bb35fca",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"user",
+						"id",
+						"66388d731ca349202bb35fca"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Approuver un utilisateur par ID",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/api/user/6638ec21b92d0022a34fee8e/approve",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"user",
+						"6638ec21b92d0022a34fee8e",
+						"approve"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Rejeter un utilisateur par ID",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/api/user/66388e361ca349202bb35fd0/reject",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"user",
+						"66388e361ca349202bb35fd0",
+						"reject"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Supprimer un utilisateur par ID",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/api/user/6640b9382f84f811b05c52fb",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"user",
+						"6640b9382f84f811b05c52fb"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Créer un message",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"title\": \"Test Postman\",\n  \"content\": \"La requête post a marché !\",\n  \"author\": \"mario\",\n  \"date\": \"2024-05-10T10:00:00.000Z\",\n  \"isAdmin\": false\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/message",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"message"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtenir tous les messages",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/api/messages",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"messages"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtenir tous les messages des administrateurs",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/api/messages/admins",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"messages",
+						"admins"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Supprimer un message",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/api/message/6640b8468c63a4208cf1a68a",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"message",
+						"6640b8468c63a4208cf1a68a"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Créer une réponse à un message",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"content\": \"Réponse au message\",\n  \"author\": \"luigi\",\n  \"date\": \"2024-05-12T10:30:00.000Z\",\n  \"isReplyTo\": \"6638d199b59a2b14ff64a78c\" // ID du message auquel répondre\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/message/reply",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"message",
+						"reply"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtenir toutes les réponses d'un message",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/api/message/663954ab3135c6beaba48a0a/replies",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"message",
+						"663954ab3135c6beaba48a0a",
+						"replies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Supprimer une réponse à un message",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/api/reply/6640bb3c2f84f811b05c52fc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"reply",
+						"6640bb3c2f84f811b05c52fc"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

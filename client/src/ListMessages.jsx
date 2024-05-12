@@ -65,7 +65,6 @@ function ListMessages({ adminMode, user, changePage }) {
         {isForm == false ? "Poster un message" : "Annuler"}
       </button>
       {isForm ? <FormMessage onAdd={addMessage} user={user} /> : <></>}
-      <h2>Latest posts</h2>
       <ul id="list_messages" className="no-bullets">
         {messages.map((message, index) => (
           <li key={index}>

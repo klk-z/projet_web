@@ -1,0 +1,73 @@
+[{
+  "_id": {
+    "$oid": "6638d199b59a2b14ff64a78c"
+  },
+  "title": "Mamma mia !",
+  "content": "C'est moi Mario !!!",
+  "author": "mario",
+  "isAdmin": false,
+  "date": {
+    "$date": "2024-05-06T12:48:25.513Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6639068db92d0022a34fee8f"
+  },
+  "title": "SOS Fantôme",
+  "content": "A l'aide!!!",
+  "author": "luigi",
+  "date": {
+    "$date": "2024-05-06T16:34:21.086Z"
+  },
+  "isAdmin": false
+},
+{
+  "_id": {
+    "$oid": "6639520e3135c6beaba48a09"
+  },
+  "title": "Venez me sauver",
+  "content": "J'ai peur du haut de ma tour",
+  "author": "peach",
+  "date": {
+    "$date": "2024-05-06T21:56:30.036Z"
+  },
+  "isAdmin": false
+},
+{
+  "_id": {
+    "$oid": "663954ab3135c6beaba48a0a"
+  },
+  "title": "Bonjour",
+  "content": "Je me présente je m'appelle Daisy. she/they",
+  "author": "daisy",
+  "date": {
+    "$date": "2024-05-06T22:07:39.151Z"
+  },
+  "isAdmin": false
+},
+{
+  "_id": {
+    "$oid": "663957908ad4ba866f1ec2cf"
+  },
+  "title": "Bienvue sur Tell'IT",
+  "content": "Profitez de nos incroyables fonctionnalités aha",
+  "author": "admin",
+  "date": {
+    "$date": "2024-05-04T22:20:00.745Z"
+  },
+  "isAdmin": true
+},
+{
+  "_id": {
+    "$oid": "6640b8468c63a4208cf1a68a"
+  },
+  "title": "Test Postman",
+  "content": "La requête post a marché !",
+  "author": "mario",
+  "date": {
+    "$date": "2024-05-10T10:00:00.000Z"
+  },
+  "isAdmin": false
+}]

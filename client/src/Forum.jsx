@@ -50,6 +50,11 @@ function Forum({ user, changePage }) {
           </div>
         </div>
         <div className="zone_messages">
+          {admin ? (
+            <h2>Derniers posts des admins</h2>
+          ) : (
+            <h2>Derniers posts</h2>
+          )}
           <div className="liste_messages">
             <ListMessages
               adminMode={admin}

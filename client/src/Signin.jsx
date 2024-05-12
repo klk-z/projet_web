@@ -3,7 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 import "./App.css";
 
-function Signin({ signin, changePage, setUser }) {
+function Signin({ signin, changePage }) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [username, setUsername] = useState("");
@@ -55,7 +55,7 @@ function Signin({ signin, changePage, setUser }) {
           // Effectuez d'autres actions après la création réussie de l'utilisateur, par exemple, redirigez l'utilisateur vers une autre page
           // changePage("login_page");
           changePage("forum");
-          setUser(response.data);
+          signin(response.data);
         } else {
           throw new Error("Erreur lors de la création du compte");
         }

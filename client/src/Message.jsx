@@ -98,7 +98,6 @@ function Message({ title, content, author, date, id, changePage, user }) {
       </div>
       {showReplies && (
         <div className="replies">
-          <h4>Replies:</h4>
           {replies.map((reply, index) => (
             <ReplyItem
               user={user}

@@ -1,15 +1,12 @@
 import React from "react";
 import { useState } from "react";
 import "./App.css";
-import Login from "./Login.jsx";
 import Logout from "./Logout.jsx";
 import logo from "./assets/logo.png";
 import pfp from "./assets/purple3.jpeg";
 
 function NavigationPanel({
-  login,
   logout,
-  signin,
   isConnected,
   changePage,
   user,

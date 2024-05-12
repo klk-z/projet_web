@@ -11,9 +11,9 @@ function NewUserItem({ user, onApprove, onReject }) {
 
   return (
     <li>
-      <span>@{user.username}</span>
-      <button onClick={handleApprove}>OK</button>
-      <button onClick={handleReject}>Non</button>
+      @{user.username} : <br></br>
+      <span><button onClick={handleApprove}>OK</button>
+      <button onClick={handleReject}>Non</button></span>
     </li>
   );
 }

@@ -92,9 +92,11 @@ function ReplyItem({ user, reply, changePage }) {
       </div>
       <div>
         <span>
-          <button onClick={handleShowReplies}>
-            {showReplies ? "v Réponses" : "> Réponses"}
-          </button>
+          {nestedReplies && nestedReplies.length > 0 && (
+            <button onClick={handleShowReplies}>
+              {showReplies ? "v Réponses" : "> Réponses"}
+            </button>
+          )}
         </span>
         <span>
           {reply.author == user.username ? (
@@ -118,17 +120,16 @@ function ReplyItem({ user, reply, changePage }) {
           <button onClick={postNestedReply}>Poster une réponse</button>
         </div>
       )}
-      {nestedReplies && nestedReplies.length > 0 && (
-        <span>
-          {showReplies && (
-            <div className="nested-replies">
-              {nestedReplies.map((nestedReply, index) => (
-                <ReplyItem user={user} reply={nestedReply} key={index} />
-              ))}
-            </div>
-          )}
-        </span>
-      )}
+
+      <span>
+        {showReplies && (
+          <div className="nested-replies">
+            {nestedReplies.map((nestedReply, index) => (
+              <ReplyItem user={user} reply={nestedReply} key={index} />
+            ))}
+          </div>
+        )}
+      </span>
     </div>
   );
 }

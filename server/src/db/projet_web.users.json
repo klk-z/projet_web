@@ -15,12 +15,72 @@
   "_id": {
     "$oid": "66388e361ca349202bb35fd0"
   },
-  "username": "t-gayet",
-  "password": "tiph",
-  "firstname": "tiphaine",
-  "lastname": "gayet",
+  "username": "mario",
+  "password": "mariopass",
+  "firstname": "mario",
+  "lastname": "bros",
   "isBanned": false,
   "isAdmin": false,
   "newUser": true,
   "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6638e6b39c497d9c87aa685c"
+  },
+  "username": "luigi",
+  "password": "luigipass",
+  "lastname": "bros",
+  "firstname": "luigi",
+  "isBanned": false,
+  "isAdmin": false,
+  "newUser": true
+},
+{
+  "_id": {
+    "$oid": "6638ec21b92d0022a34fee8e"
+  },
+  "username": "peach",
+  "password": "peachpass",
+  "lastname": "peachounette",
+  "firstname": "peach",
+  "isBanned": false,
+  "isAdmin": false,
+  "newUser": true
+},
+{
+  "_id": {
+    "$oid": "663955aa8ad4ba866f1ec2ce"
+  },
+  "username": "daisy",
+  "password": "daisypass",
+  "lastname": "princess",
+  "firstname": "daisy",
+  "isBanned": false,
+  "isAdmin": false,
+  "newUser": false
+},
+{
+  "_id": {
+    "$oid": "66395e991dd697c416404e9b"
+  },
+  "username": "toad",
+  "password": "toadpass",
+  "lastname": "champi",
+  "firstname": "toad",
+  "isBanned": true,
+  "isAdmin": false,
+  "newUser": false
+},
+{
+  "_id": {
+    "$oid": "6640b9382f84f811b05c52fb"
+  },
+  "username": "deleteuser",
+  "password": "deletepass",
+  "firstname": "deletefirst",
+  "lastname": "deletelast",
+  "isBanned": false,
+  "isAdmin": false,
+  "newUser": true
 }]

@@ -269,7 +269,7 @@ function init(db) {
   // Obtenir un utilisateur par ID
   router.get("/user/id/:user_id", async (req, res) => {
     try {
-      const user_id = ObjectID(req.params.user_id);
+      const user_id = req.params.user_id;
       const user = await users.getById(user_id);
       if (!user) {
         res.sendStatus(404);
@@ -284,7 +284,7 @@ function init(db) {
   // Supprimer un utilisateur par ID
   router.delete("/user/:user_id", async (req, res) => {
     try {
-      const user_id = ObjectID(req.params.user_id);
+      const user_id = req.params.user_id;
       const result = await users.delete(user_id);
       res.send(result);
     } catch (error) {

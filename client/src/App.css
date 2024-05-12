@@ -1,4 +1,3 @@
-
 /*
 input[type="button"], input[type="submit"] { 
   background-color: #04AA6D;
@@ -45,14 +44,14 @@ input[type="button"], input[type="submit"] {
 }
 
 form {
-	text-align: center;
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	grid-gap: 10px;
-	margin : auto ;
-	padding : 10px;
-  border : 2px solid #664e37 ;
-  background-color: #efe4DC;
+  text-align: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
+  margin: auto;
+  padding: 10px;
+  border: 2px solid #664e37;
+  background-color: #efe4dc;
 }
 
 input {
@@ -62,20 +61,20 @@ input {
 
 .formMessage {
   text-align: center;
-	display: grid;
-	grid-template-columns: 1fr;
-	grid-gap: 10px;
-	margin : auto ;
-	padding : 30px;
-  border : 5px solid black ;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 10px;
+  margin: auto;
+  padding: 30px;
+  border: 5px solid black;
 }
 
 form label {
-	text-align: left;
+  text-align: left;
 }
 
 a:link {
-  color:  #725a48;
+  color: #725a48;
   background-color: #d1a481;
   text-decoration: none;
 }
@@ -85,9 +84,9 @@ span {
 }
 
 .header_part {
-	display: grid;
-	grid-template-columns: 1fr 3fr 1fr;
-	text-align: center ;
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+  text-align: center;
 }
 
 .main_page {
@@ -101,8 +100,8 @@ span {
 }
 
 .message {
-  border:5px  #526006;
-  border-style:  inset;
+  border: 5px #526006;
+  border-style: inset;
   border-radius: 15px;
   padding: 10px;
   margin-bottom: 20px;
@@ -134,7 +133,6 @@ span {
   display: grid;
   /*grid-template-columns: 1fr 3fr 1fr;*/
   gap: 10px;
-  
 }
 
 .reply {
@@ -143,7 +141,6 @@ span {
   padding: 10px;
   margin-bottom: 20px;
   background-color: #efe4dc;
-
 }
 
 .reply p {
@@ -159,15 +156,13 @@ span {
   margin-top: 20px; /* Espacement entre les réponses imbriquées */
 }
 
-
 #profile_pic {
-  width:200px;
-  }
-
+  width: 200px;
+}
 
 .post-it {
   padding: 6%;
-  background-color: #CBC3E3;
+  background-color: #cbc3e3;
   box-shadow: 3px 4px 6px #444;
   -moz-box-shadow: 3px 4px 6px #444;
   -webkit-box-shadow: 3px 4px 6px #444;
@@ -177,4 +172,4 @@ span {
   -o-transform: rotate(-3deg);
   -ms-transform: rotate(3deg);
   border-bottom-right-radius: 60px 10px;
-  }
+}

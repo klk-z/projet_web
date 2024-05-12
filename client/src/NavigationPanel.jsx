@@ -43,7 +43,7 @@ function NavigationPanel({login, logout, signin, isConnected, changePage, user})
             </div>):<></>}
             {menuOpen && isConnected && (
                 <div className="menu">
-                    <button onClick={ () => changePage("profile_page")}>Profil</button>
+                    <button onClick={ () => changePage("profile_page", user.username)}>Profil</button>
                     <Logout logout={logout}/>
                 </div>
             )}

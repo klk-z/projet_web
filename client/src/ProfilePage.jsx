@@ -10,7 +10,7 @@ function ProfilePage({user, usernameProfile, changePage }) {
 
     useEffect(() => {
         // Fonction pour récupérer les données de l'utilisateur
-        const fetchUserData = async () => {
+        const fetchUserData = () => {
             axios.get(`http://localhost:4000/api/user/${usernameProfile}`)
             .then(response => {
                 console.log(response.data)

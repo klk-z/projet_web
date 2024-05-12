@@ -95,5 +95,3 @@ function MainPage() {
 }
 
 export default MainPage;
-
-// {isConnected ? <Logout logout={setLogout} changePage={changePage}/> : <Login login={getConnected} changePage={changePage}/>}

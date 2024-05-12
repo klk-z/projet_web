@@ -21,7 +21,7 @@ function NavigationPanel({
     <nav id="navigation_pan">
       <div className="header_part">
         <div className="header_left">
-          <img id="logo" src={logo} alt="logo" />
+          <img id="logo" src={logo} alt="logo" onClick={() => isConnected && changePage("forum")}/>
         </div>
         <div className="header_middle">
           <h1>Tell'IT</h1>

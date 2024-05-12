@@ -89,10 +89,6 @@ span {
   text-align: center;
 }
 
-.main_page {
-  overflow-y: auto;
-}
-
 .forum-container {
   display: grid;
   grid-template-columns: 1fr 3fr 1fr; /* Ratio 1:3:1 */

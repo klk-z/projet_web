@@ -11,22 +11,29 @@ partie client : ensemble partie server : surtout Tiphaine .css : surtout Khadija
 Login : nous n’avons pas réussi à utiliser express-session. On a donc voulu essayer de
 simuler une session en récupérant les données de l’utilisateur depuis son username, en
 vérifiant que le mot de passe était correct. Mais étrangement, cela n’a pas marché (la
-route api utilisée fonctionne pourtant dans d’autres cas). Par manque de temps, nous avons
-abandonné et simplement donné les données en dur. Nous sommes donc automatiquement
+route api utilisée fonctionne pourtant dans d’autres cas).  Par manque de temps, nous
+avons abandonné et simplement donné les données en dur. Nous sommes donc automatiquement
 connectés avec le compte admin.
 
-## Ce qui reste à faire
+## Ce qui reste à faire (manque de temps)
 
-Likes : faire en sorte que chaque objet Message possède la liste des utilisateurs qui
-l’ont liké. Gestion de compte : autoriser chaque utilisateur à modifier/supprimer son
-profil, pouvoir bannir les utilisateurs autrement que lors de la validation des nouveaux
-utilisateurs, pouvoir choisir de nouveaux admins. Photo de profil : permettre à un
-utilisateur d’avoir une photo de profil personnalisée.
+- Likes : faire en sorte que chaque objet Message possède la liste des utilisateurs qui
+l’ont liké. 
+- Gestion de compte : autoriser chaque utilisateur à modifier/supprimer son profil, 
+pouvoir bannir les utilisateurs autrement que lors de la validation des nouveaux
+utilisateurs, pouvoir choisir de nouveaux admins. 
+- Photo de profil : permettre à unutilisateur d’avoir une photo de profil personnalisée.
+- Sécurité : sécurisation des données (hashage du mot de passe)
 
 ## Choix de modélisation différents
 
 Dans notre modélisation, NavigationPanel n’appelle pas les composants Signin et Login.
 NavigationPanel nous fait changer de page grâce à la modification du state currentPage
-qu’il hérite de MainPage. MainPage appelle NavigationPanel ainsi que le composant
-principale de la currentPage, Signin et Login en font partie, tout comme Forum et
-ProfilePage.
+qu’il hérite de MainPage. 
+MainPage appelle NavigationPanel ainsi que le composant principal de la currentPage, 
+Signin et Login en font partie, tout comme Forum et ProfilePage.
+
+En ce qui concerne la validation des utilisateurs :
+Tout utilisateur peut utiliser l'application immédiatement après la création de son compte.
+La vérification est effectuée a posteriori.
+Si l'utilisateur n'est pas accepté, il sera banni mais son compte pas supprimé.

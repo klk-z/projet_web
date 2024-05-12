@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-function ReplyItem({ user, reply }) {
+function ReplyItem({ user, reply, changePage }) {
     const [showReplies, setShowReplies] = useState(false);
     const [nestedReplies, setNestedReplies] = useState([]);
     const [replyContent, setReplyContent] = useState('');
@@ -54,14 +54,39 @@ function ReplyItem({ user, reply }) {
         }
     };
 
+    const deleteReply = async () => {
+        try {
+            const response = await axios.delete(`http://localhost:4000/api/reply/${reply._id}`);
+            if (response.status === 201) {
+                console.log("Réponse supprimé avec succès", response.data);
+            } else {
+                throw new Error('Erreur lors de la suppression :');
+            }
+        } catch (error) {
+            console.error('Erreur lors de la suppression de la réponse :', error);
+        }
+    }
+
     return (
         <div className="reply">
             <p>{reply.content}</p>
-            <p>By: {reply.author}</p>
-            <p>Date: {new Date(reply.date).toLocaleDateString()}</p>
-            {nestedReplies && nestedReplies.length > 0 && (
+            <div>
+            <span> <a href='#' onClick={() => changePage("profile_page", author)}> @{reply.author} </a> </span>
+            <span>  {new Date(reply.date).toLocaleDateString()} </span>
+            </div>
+            <div>
+            <span><button onClick={handleShowReplies}>{showReplies?"v Réponses":"> Réponses"}</button></span>
+            <span>{reply.author == user.username ? <button onClick={() => deleteReply()}>Supprimer</button> : <></> }</span>         
+            <span><button onClick={() => setShowReplyForm(prevState => !prevState)}>{showReplyForm? "Annuler" : "Répondre"}</button></span>
+            </div>
+            {showReplyForm && ( // Afficher le formulaire de réponse uniquement si showReplyForm est vrai
                 <div>
-                    <button onClick={handleShowReplies}>Show Nested Replies</button>
+                    <textarea value={replyContent} onChange={(e) => setReplyContent(e.target.value)} />
+                    <button onClick={postNestedReply}>Poster une réponse</button>
+                </div>
+            )}
+            {nestedReplies && nestedReplies.length > 0 && (
+                <span>
                     {showReplies && (
                         <div className="nested-replies">
                             {nestedReplies.map((nestedReply, index) => (
@@ -69,15 +94,8 @@ function ReplyItem({ user, reply }) {
                             ))}
                         </div>
                     )}
-                </div>
+                </span>
             )}
-            {showReplyForm && ( // Afficher le formulaire de réponse uniquement si showReplyForm est vrai
-                <div>
-                    <textarea value={replyContent} onChange={(e) => setReplyContent(e.target.value)} />
-                    <button onClick={postNestedReply}>Post Nested Reply</button>
-                </div>
-            )}
-            <button onClick={() => setShowReplyForm(prevState => !prevState)}>{showReplyForm? "Cancel" : "Reply"}</button> {/* Bouton pour afficher ou masquer le formulaire de réponse */}
         </div>
     );
 }

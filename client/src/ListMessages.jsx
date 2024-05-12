@@ -23,7 +23,7 @@ function ListMessages({adminMode, user, changePage}) {
     let url = 'http://localhost:4000/api/messages';
 
     if (adminMode) {
-        url = 'http://localhost:4000/api/messages/admin'; // URL pour les messages d'administrateurs
+        url = 'http://localhost:4000/api/messages/admins'; // URL pour les messages d'administrateurs
     }
 
     axios.get(url) 

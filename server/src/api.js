@@ -69,22 +69,6 @@ function init(db) {
     });
 
     // Obtenir un utilisateur par nom d'utilisateur
-   /* router.get("/user/:username", async (req, res) => {
-        try {
-            const username = req.params.username;
-            console.log("username ", username)
-            const user = await users.getByUsername(username);
-            if (!user) {
-                res.sendStatus(404);
-                console.log(user);
-            } else {
-                res.send(user);
-            }
-        } catch (error) {
-            res.status(500).send(error.toString());
-        }
-    });*/
-
     router.get("/user/:username", async (req, res) => {
         try {
             const username = req.params.username;
@@ -159,7 +143,7 @@ function init(db) {
     });
 
     // Obtenir tous les messages
-    router.get("/messages/admin", (req, res) => {
+    router.get("/messages/admins", (req, res) => {
         messages.getAdmin()
             .then(messages => {
                 res.send(messages);
@@ -399,6 +383,28 @@ function init(db) {
             const user_id = ObjectID(req.params.user_id);
             const result = await users.delete(user_id);
             res.send(result);
+        } catch (error) {
+            res.status(500).send(error.toString());
+        }
+    });
+
+    // Supprimer un utilisateur par ID
+    router.delete("/message/:message_id", async (req, res) => {
+        try {
+            const message_id = req.params.message_id;
+            const result = await messages.delete(message_id);
+            res.status(201).send(result);
+        } catch (error) {
+            res.status(500).send(error.toString());
+        }
+    });
+
+    // Supprimer un utilisateur par ID
+    router.delete("/reply/:reply_id", async (req, res) => {
+        try {
+            const reply_id = req.params.reply_id;
+            const result = await replies.delete(reply_id);
+            res.status(201).send(result);
         } catch (error) {
             res.status(500).send(error.toString());
         }

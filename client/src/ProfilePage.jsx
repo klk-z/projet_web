@@ -47,7 +47,7 @@ function ProfilePage({user, usernameProfile, changePage }) {
             <button onClick={ () => changePage("forum") }>{'<'}</button>
             {userData && (
                 <div>
-                    <h2>Profil de @{userData.username}</h2>
+                    <h1>Profil de @{userData.username}</h1>
                     <p>Nom : {userData.lastname}</p>
                     <p>Prénom : {userData.firstname}</p>
                      {/*Affichage des autres attributs de l'utilisateur */}

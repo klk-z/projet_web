@@ -21,7 +21,7 @@ function NavigationPanel({login, logout, signin, isConnected, changePage, user})
         <div className="header_part">
 			    
 			    <div className="header_left">
-            <img id="logo" src={logo} alt="blue reddit"/> 
+            <img id="logo" src={logo} alt="logo"/> 
           </div>
           <div className="header_middle">
             <h1>Tell'IT</h1>
@@ -34,7 +34,6 @@ function NavigationPanel({login, logout, signin, isConnected, changePage, user})
           <div className="liens">
             {isConnected?(
             <div className="profile-pic" onClick={handleToggleMenu}>
-              
                 {user && user.pfp ? (
                     <img id="profile_pic" src={user.pfp} alt="Photo de profil" />
                 ) : (
@@ -44,8 +43,8 @@ function NavigationPanel({login, logout, signin, isConnected, changePage, user})
             </div>):<></>}
             {menuOpen && isConnected && (
                 <div className="menu">
-                    <button onClick={ () => changePage("profile_page")}>Profile Page</button>
-                    <button onClick={logout}>Logout</button>
+                    <button onClick={ () => changePage("profile_page")}>Profil</button>
+                    <Logout logout={logout}/>
                 </div>
             )}
             </div>

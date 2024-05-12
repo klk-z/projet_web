@@ -73,6 +73,23 @@ class Messages {
         });
     }
 
+    delete(message_id) {
+        return new Promise((resolve, reject) => {
+            this.db.collection('messages').deleteOne({ _id: new ObjectId(message_id) })
+                .then(result => {
+                    if (result.deletedCount === 1) {
+                        resolve(result);
+                    } else {
+                        reject(new Error('Le message n\'a pas été trouvé ou n\'a pas pu être supprimé.'));
+                    }
+                })
+                .catch(error => {
+                    reject(error);
+                });
+        });
+    }
+    
+
 
 }
 

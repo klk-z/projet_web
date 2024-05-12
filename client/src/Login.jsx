@@ -5,7 +5,7 @@ import axios from 'axios'
 
 
 
-function Login({login, changePage}) {
+function Login({login, changePage, setUser}) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
@@ -17,23 +17,46 @@ function Login({login, changePage}) {
         setPassword(event.target.value);
     };
     
-    const logUser = async () => {
-        await axios.post('http://localhost:4000/api/user/login', {username, password}) 
-        .then(response => {
-            console.log(response.data)
-            login(response.data); // Met à jour l'état avec les données récupérées depuis le serveur
-        })
-        .catch(error => {
-            console.error('Erreur lors du login:', error);
-        });
-    };
-  
+    /*
+    async function try_login(){
+        try {
+            await axios.get("http://localhost:4000/api/user/login", {
+                params: {
+                    username: username,
+                    password: password
+                }
+            })
+        }catch(err){
+            console.log(err)
+        }
+        login();
+    }
+   
+    const loginUser = async (username, password) => {
+        try {
+            const response = await axios.post("http://localhost:4000/api/user/login", {
+                login: username,
+                password: password
+            }, {
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                withCredentials: true
+            });
+            setUser(response.data);
+            console.log(response.data);
+        } catch (error) {
+            console.log(error);
+        }
+    };*/
+     
+
 
 
     return (
         <>
         <h1>Se connecter</h1>
-		<form onSubmit={logUser} id="login_form">
+		<form onSubmit={login} id="login_form">
 			<label htmlFor="chp_login">Nom d'utilisateur</label><input id="chp_login" type="text" value={username} onChange={handleUsernameChange} required />
 			<label htmlFor="chp_pwd">Mot de passe</label><input id="chp_pwd" type="password" value={password} onChange={handlePasswordChange}   autoComplete='on' required />
 			<button type="submit">Connexion</button>

@@ -31,6 +31,12 @@ function Forum({user, changePage}) {
 			</div>:<></>}
 			<div className="zone_informations">
 				<h2>Informations</h2>
+				<div className="post-it"><h3>Rendez-vous fleuri !</h3> Ce week-end les 11 et 12 mai, venez rencontrez vos admins !</div>
+				<br></br>
+				<div className="post-it"><h3>Rendez-vous fleuri !</h3> Ce week-end les 11 et 12 mai, venez rencontrez vos admins !</div>
+				<br></br>
+				<div className="post-it"><h3>Rendez-vous fleuri !</h3> Ce week-end les 11 et 12 mai, venez rencontrez vos admins !</div>
+				<br></br>
 			</div>
 		</div>
 		<div className="zone_messages">

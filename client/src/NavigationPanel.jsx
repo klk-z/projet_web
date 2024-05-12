@@ -3,8 +3,8 @@ import { useState } from 'react'
 import './App.css'
 import Login from './Login.jsx'
 import Logout from './Logout.jsx'
-import logo from"./assets/reddit_pastel.png"
-import pfp from "./assets/default-profile-pic.jpg" 
+import logo from"./assets/logo.png"
+import pfp from "./assets/purple3.jpeg" 
 
 
 function NavigationPanel({login, logout, signin, isConnected, changePage, user}) {
@@ -44,7 +44,7 @@ function NavigationPanel({login, logout, signin, isConnected, changePage, user})
             </div>):<></>}
             {menuOpen && isConnected && (
                 <div className="menu">
-                    <button onClick={ () => changePage("profile_page", user.username)}>Profile Page</button>
+                    <button onClick={ () => changePage("profile_page")}>Profile Page</button>
                     <button onClick={logout}>Logout</button>
                 </div>
             )}

@@ -61,7 +61,6 @@ function NavigationPanel({
           )}
         </div>
       </div>
-      {/*isConnected ? <Logout logout={logout} changePage={setCurrentPage}/> : <Login login={login} changePage={setCurrentPage}/>*/}
     </nav>
   );
 }

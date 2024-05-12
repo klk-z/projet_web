@@ -11,26 +11,7 @@ function ListMessages({ adminMode, user, changePage }) {
   // if adminMode : fetch les messages d'administrateurs
   // if search : fetch les messages qui correspondent
   const [isForm, setIsForm] = useState(false);
-  const [messages, setMessages] = useState([
-    {
-      title: "Mario",
-      content: "mon film est au cinéma",
-      author: "itsameeeee",
-      date: new Date(),
-    },
-    {
-      title: "Luigi",
-      content: "c bizarre moi aussi",
-      author: "itsameeeee2",
-      date: new Date(),
-    },
-    {
-      title: "Peach",
-      content: "Mario! Viens me sauver!!!!",
-      author: "itsayouuu",
-      date: new Date(),
-    },
-  ]);
+  const [messages, setMessages] = useState([]);
 
   useEffect(() => {
     let url = "http://localhost:4000/api/messages";
@@ -42,9 +23,8 @@ function ListMessages({ adminMode, user, changePage }) {
     axios
       .get(url)
       .then((response) => {
-        console.log(response.data);
+        console.log('liste messages : ' , response.data);
         setMessages(response.data); // Met à jour l'état avec les données récupérées depuis le serveur
-        console.log(messages);
       })
       .catch((error) => {
         console.error("Erreur lors de la récupération des messages:", error);

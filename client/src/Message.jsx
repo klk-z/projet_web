@@ -18,6 +18,7 @@ function Message({ title, content, author, date, id, changePage, user }) {
       const response = await axios.get(
         `http://localhost:4000/api/message/${id}/replies`
       );
+      console.log('replies fetched : ',response.data );
       setReplies(response.data);
     } catch (error) {
       console.error("Erreur lors de la récupération des réponses :", error);
@@ -51,7 +52,7 @@ function Message({ title, content, author, date, id, changePage, user }) {
 
   const deleteMessage = async () => {
     try {
-      console.log(id);
+      //console.log(id);
       const response = await axios.delete(
         `http://localhost:4000/api/message/${id}`
       );

@@ -27,7 +27,7 @@ function MainPage() {
       newUser: false,
       __v: 0,
     });
-
+    console.log('utilisateur connecté : ', user.username);
     changePage("forum");
   };
 
@@ -41,6 +41,7 @@ function MainPage() {
     setCurrentPage("login_page");
     setIsConnected(false);
     setUser({});
+    console.log('utilisateur deconnecté')
   };
 
   const changePage = (page, author) => {
@@ -49,6 +50,7 @@ function MainPage() {
       return;
     }
     setCurrentPage(page);
+    console.log('--> ', page);
     if (author) {
       setUsernameProfile(author);
     }

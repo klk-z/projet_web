@@ -12,7 +12,7 @@ function NewUsers() {
       .then((response) => {
         console.log(response.data);
         setUsers(response.data); // Met à jour l'état avec les données récupérées depuis le serveur
-        console.log(users);
+        //console.log(users);
       })
       .catch((error) => {
         console.error("Erreur lors de la récupération des users:", error);
@@ -29,7 +29,7 @@ function NewUsers() {
       .put(`http://localhost:4000/api/user/${userId}/approve`)
       .then((response) => {
         // Mettre à jour la liste des utilisateurs après l'approbation
-        console.log(response);
+        console.log('handleApprove : ', response);
         fetchNewUsers();
       })
       .catch((error) => {
@@ -46,7 +46,7 @@ function NewUsers() {
       .put(`http://localhost:4000/api/user/${userId}/reject`)
       .then((response) => {
         // Mettre à jour la liste des utilisateurs après l'approbation
-        console.log(response);
+        console.log('handleReject : ', response);
         fetchNewUsers();
       })
       .catch((error) => {

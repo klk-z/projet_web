@@ -3,9 +3,6 @@ const Users = require("./entities/users.js");
 const Messages = require("./entities/messages.js");
 const Replies = require("./entities/replies.js");
 
-const session = require("express-session");
-const { ObjectID } = require("mongodb");
-
 function init(db) {
   const router = express.Router();
   // On utilise JSON
@@ -139,6 +136,7 @@ function init(db) {
       });
   });
 
+  // Obtenir les messages d'un utilisateurs
   router.get("/user/:username/messages", async (req, res) => {
     try {
       const username = req.params.username;
@@ -242,7 +240,7 @@ function init(db) {
   // Mettre à jour un utilisateur par ID
   router.put("/user/:user_id/approve", async (req, res) => {
     const userId = req.params.user_id;
-    console.log(userId);
+    // console.log(userId);
     // Assurez-vous que l'utilisateur existe
     const userExists = await users.getById(userId);
     if (!userExists) {

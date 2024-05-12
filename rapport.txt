@@ -4,16 +4,21 @@ Binôme : Tiphaine GAYET & Khadija ZAMOURI
 
 ## Répartition du travail dans le binôme
 
-partie client : ensemble partie server : surtout Tiphaine .css : surtout Khadija
+partie client : ensemble 
+partie server : surtout Tiphaine 
+.css : surtout Khadija
+video : Tiphaine
 
 ## Problèmes rencontrés
 
-Login : nous n’avons pas réussi à utiliser express-session. On a donc voulu essayer de
+- Login : nous n’avons pas réussi à utiliser express-session. On a donc voulu essayer de
 simuler une session en récupérant les données de l’utilisateur depuis son username, en
 vérifiant que le mot de passe était correct. Mais étrangement, cela n’a pas marché (la
 route api utilisée fonctionne pourtant dans d’autres cas).  Par manque de temps, nous
 avons abandonné et simplement donné les données en dur. Nous sommes donc automatiquement
 connectés avec le compte admin.
+- SearchBar : nous n'avons pas réussi à renvoyer les messages contenant un ou plusieurs
+mots-clés. La réponse renvoyée par le serveur était undefined.
 
 ## Ce qui reste à faire (manque de temps)
 

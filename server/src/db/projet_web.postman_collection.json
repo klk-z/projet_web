@@ -256,6 +256,28 @@
 			"response": []
 		},
 		{
+			"name": "Obtenir tous les messages d'un utilisateur",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/api/user/mario/messages",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"user",
+						"mario",
+						"messages"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Supprimer un message",
 			"request": {
 				"method": "DELETE",

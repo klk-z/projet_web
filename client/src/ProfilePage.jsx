@@ -33,7 +33,7 @@ function ProfilePage({ user, usernameProfile, changePage }) {
       axios
         .get(`http://localhost:4000/api/user/${usernameProfile}/messages`)
         .then((response) => {
-          console.log(response.data);
+          console.log('fetchUserMessage : ', response.data);
           setUserMessages(response.data); // Met à jour l'état avec les données récupérées depuis le serveur
         })
         .catch((error) => {
